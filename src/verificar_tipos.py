@@ -138,7 +138,8 @@ def inferirTipoElemento(
             anotacoes,
             erros,
             linha,
-            oprel_permitido=oprel_permitido
+            oprel_permitido=oprel_permitido,
+            res_permitido=False
         )
 
     adicionarErro(
@@ -350,7 +351,8 @@ def inferirTipoComando(
     anotacoes,
     erros,
     linha_padrao,
-    oprel_permitido=False
+    oprel_permitido=False,
+    res_permitido=False
 ):
     linha = linhaDoToken(tokens_comando[0], linha_padrao)
     elementos = separarElementos(tokens_comando)
@@ -380,8 +382,16 @@ def inferirTipoComando(
         primeiro = elementos[0]
         segundo = elementos[1]
 
-        # (N RES)
+        # Caso: (N RES)
         if elementoEhToken(segundo, "RES"):
+            if not res_permitido:
+                adicionarErro(
+                    erros,
+                    f"Erro semântico na linha {linha}: "
+                    f"RES só pode ser usado como comando isolado no formato (N RES)."
+                )
+                return TIPO_ERRO
+
             return validarRes(
                 primeiro,
                 resultados_anteriores,
@@ -656,7 +666,9 @@ def verificarTipos(arvore, tabela_simbolos):
             resultados_anteriores,
             anotacoes,
             erros,
-            linha
+            linha,
+            oprel_permitido=False,
+            res_permitido=True
         )
 
         pode_ser_null = False
