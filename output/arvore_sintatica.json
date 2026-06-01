@@ -35,7 +35,7 @@
                                     "filhos": [],
                                     "token": [
                                         "NUM",
-                                        "1",
+                                        "2",
                                         1,
                                         2
                                     ]
@@ -107,7 +107,7 @@
                                             "filhos": [],
                                             "token": [
                                                 "NUM",
-                                                "2",
+                                                "1",
                                                 1,
                                                 3
                                             ]
@@ -175,169 +175,35 @@
                                             "simbolo": "conteudo",
                                             "filhos": [
                                                 {
-                                                    "simbolo": "comando",
-                                                    "filhos": [
-                                                        {
-                                                            "simbolo": "EPAR",
-                                                            "filhos": [],
-                                                            "token": [
-                                                                "EPAR",
-                                                                "(",
-                                                                1,
-                                                                4
-                                                            ]
-                                                        },
-                                                        {
-                                                            "simbolo": "conteudo",
-                                                            "filhos": [
-                                                                {
-                                                                    "simbolo": "MEM",
-                                                                    "filhos": [],
-                                                                    "token": [
-                                                                        "MEM",
-                                                                        "A",
-                                                                        2,
-                                                                        4
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    "simbolo": "cont_mem",
-                                                                    "filhos": [
-                                                                        {
-                                                                            "simbolo": "MEM",
-                                                                            "filhos": [],
-                                                                            "token": [
-                                                                                "MEM",
-                                                                                "B",
-                                                                                4,
-                                                                                4
-                                                                            ]
-                                                                        },
-                                                                        {
-                                                                            "simbolo": "fim_mem",
-                                                                            "filhos": [
-                                                                                {
-                                                                                    "simbolo": "operador_final",
-                                                                                    "filhos": [
-                                                                                        {
-                                                                                            "simbolo": "OPREL",
-                                                                                            "filhos": [],
-                                                                                            "token": [
-                                                                                                "OPREL",
-                                                                                                "<",
-                                                                                                6,
-                                                                                                4
-                                                                                            ]
-                                                                                        }
-                                                                                    ],
-                                                                                    "token": null
-                                                                                }
-                                                                            ],
-                                                                            "token": null
-                                                                        }
-                                                                    ],
-                                                                    "token": null
-                                                                }
-                                                            ],
-                                                            "token": null
-                                                        },
-                                                        {
-                                                            "simbolo": "DPAR",
-                                                            "filhos": [],
-                                                            "token": [
-                                                                "DPAR",
-                                                                ")",
-                                                                7,
-                                                                4
-                                                            ]
-                                                        }
-                                                    ],
-                                                    "token": null
+                                                    "simbolo": "NUM",
+                                                    "filhos": [],
+                                                    "token": [
+                                                        "NUM",
+                                                        "1",
+                                                        1,
+                                                        4
+                                                    ]
                                                 },
                                                 {
-                                                    "simbolo": "cont_comando",
+                                                    "simbolo": "cont_num",
                                                     "filhos": [
                                                         {
-                                                            "simbolo": "comando",
-                                                            "filhos": [
-                                                                {
-                                                                    "simbolo": "EPAR",
-                                                                    "filhos": [],
-                                                                    "token": [
-                                                                        "EPAR",
-                                                                        "(",
-                                                                        9,
-                                                                        4
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    "simbolo": "conteudo",
-                                                                    "filhos": [
-                                                                        {
-                                                                            "simbolo": "NUM",
-                                                                            "filhos": [],
-                                                                            "token": [
-                                                                                "NUM",
-                                                                                "2",
-                                                                                10,
-                                                                                4
-                                                                            ]
-                                                                        },
-                                                                        {
-                                                                            "simbolo": "cont_num",
-                                                                            "filhos": [
-                                                                                {
-                                                                                    "simbolo": "MEM",
-                                                                                    "filhos": [],
-                                                                                    "token": [
-                                                                                        "MEM",
-                                                                                        "A",
-                                                                                        12,
-                                                                                        4
-                                                                                    ]
-                                                                                },
-                                                                                {
-                                                                                    "simbolo": "fim_mem",
-                                                                                    "filhos": [
-                                                                                        {
-                                                                                            "simbolo": "ε",
-                                                                                            "filhos": [],
-                                                                                            "token": null
-                                                                                        }
-                                                                                    ],
-                                                                                    "token": null
-                                                                                }
-                                                                            ],
-                                                                            "token": null
-                                                                        }
-                                                                    ],
-                                                                    "token": null
-                                                                },
-                                                                {
-                                                                    "simbolo": "DPAR",
-                                                                    "filhos": [],
-                                                                    "token": [
-                                                                        "DPAR",
-                                                                        ")",
-                                                                        13,
-                                                                        4
-                                                                    ]
-                                                                }
-                                                            ],
-                                                            "token": null
+                                                            "simbolo": "MEM",
+                                                            "filhos": [],
+                                                            "token": [
+                                                                "MEM",
+                                                                "C",
+                                                                3,
+                                                                4
+                                                            ]
                                                         },
                                                         {
-                                                            "simbolo": "operador_final",
+                                                            "simbolo": "fim_mem",
                                                             "filhos": [
                                                                 {
-                                                                    "simbolo": "ENQUANTO",
+                                                                    "simbolo": "ε",
                                                                     "filhos": [],
-                                                                    "token": [
-                                                                        "ENQUANTO",
-                                                                        "enquanto",
-                                                                        15,
-                                                                        4
-                                                                    ]
+                                                                    "token": null
                                                                 }
                                                             ],
                                                             "token": null
@@ -354,7 +220,7 @@
                                             "token": [
                                                 "DPAR",
                                                 ")",
-                                                23,
+                                                4,
                                                 4
                                             ]
                                         }
@@ -385,7 +251,7 @@
                                                             "filhos": [],
                                                             "token": [
                                                                 "NUM",
-                                                                "0",
+                                                                "4",
                                                                 1,
                                                                 5
                                                             ]
@@ -394,14 +260,25 @@
                                                             "simbolo": "cont_num",
                                                             "filhos": [
                                                                 {
-                                                                    "simbolo": "RES",
+                                                                    "simbolo": "MEM",
                                                                     "filhos": [],
                                                                     "token": [
-                                                                        "RES",
-                                                                        "RES",
+                                                                        "MEM",
+                                                                        "D",
                                                                         3,
                                                                         5
                                                                     ]
+                                                                },
+                                                                {
+                                                                    "simbolo": "fim_mem",
+                                                                    "filhos": [
+                                                                        {
+                                                                            "simbolo": "ε",
+                                                                            "filhos": [],
+                                                                            "token": null
+                                                                        }
+                                                                    ],
+                                                                    "token": null
                                                                 }
                                                             ],
                                                             "token": null
@@ -415,7 +292,7 @@
                                                     "token": [
                                                         "DPAR",
                                                         ")",
-                                                        6,
+                                                        4,
                                                         5
                                                     ]
                                                 }
@@ -426,8 +303,362 @@
                                             "simbolo": "lista_comandos",
                                             "filhos": [
                                                 {
-                                                    "simbolo": "ε",
-                                                    "filhos": [],
+                                                    "simbolo": "comando",
+                                                    "filhos": [
+                                                        {
+                                                            "simbolo": "EPAR",
+                                                            "filhos": [],
+                                                            "token": [
+                                                                "EPAR",
+                                                                "(",
+                                                                0,
+                                                                6
+                                                            ]
+                                                        },
+                                                        {
+                                                            "simbolo": "conteudo",
+                                                            "filhos": [
+                                                                {
+                                                                    "simbolo": "comando",
+                                                                    "filhos": [
+                                                                        {
+                                                                            "simbolo": "EPAR",
+                                                                            "filhos": [],
+                                                                            "token": [
+                                                                                "EPAR",
+                                                                                "(",
+                                                                                1,
+                                                                                6
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "simbolo": "conteudo",
+                                                                            "filhos": [
+                                                                                {
+                                                                                    "simbolo": "MEM",
+                                                                                    "filhos": [],
+                                                                                    "token": [
+                                                                                        "MEM",
+                                                                                        "A",
+                                                                                        2,
+                                                                                        6
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "simbolo": "cont_mem",
+                                                                                    "filhos": [
+                                                                                        {
+                                                                                            "simbolo": "MEM",
+                                                                                            "filhos": [],
+                                                                                            "token": [
+                                                                                                "MEM",
+                                                                                                "B",
+                                                                                                4,
+                                                                                                6
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "simbolo": "fim_mem",
+                                                                                            "filhos": [
+                                                                                                {
+                                                                                                    "simbolo": "operador_final",
+                                                                                                    "filhos": [
+                                                                                                        {
+                                                                                                            "simbolo": "OPREL",
+                                                                                                            "filhos": [],
+                                                                                                            "token": [
+                                                                                                                "OPREL",
+                                                                                                                ">=",
+                                                                                                                6,
+                                                                                                                6
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "token": null
+                                                                                                }
+                                                                                            ],
+                                                                                            "token": null
+                                                                                        }
+                                                                                    ],
+                                                                                    "token": null
+                                                                                }
+                                                                            ],
+                                                                            "token": null
+                                                                        },
+                                                                        {
+                                                                            "simbolo": "DPAR",
+                                                                            "filhos": [],
+                                                                            "token": [
+                                                                                "DPAR",
+                                                                                ")",
+                                                                                8,
+                                                                                6
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    "token": null
+                                                                },
+                                                                {
+                                                                    "simbolo": "cont_comando",
+                                                                    "filhos": [
+                                                                        {
+                                                                            "simbolo": "comando",
+                                                                            "filhos": [
+                                                                                {
+                                                                                    "simbolo": "EPAR",
+                                                                                    "filhos": [],
+                                                                                    "token": [
+                                                                                        "EPAR",
+                                                                                        "(",
+                                                                                        10,
+                                                                                        6
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "simbolo": "conteudo",
+                                                                                    "filhos": [
+                                                                                        {
+                                                                                            "simbolo": "comando",
+                                                                                            "filhos": [
+                                                                                                {
+                                                                                                    "simbolo": "EPAR",
+                                                                                                    "filhos": [],
+                                                                                                    "token": [
+                                                                                                        "EPAR",
+                                                                                                        "(",
+                                                                                                        11,
+                                                                                                        6
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "simbolo": "conteudo",
+                                                                                                    "filhos": [
+                                                                                                        {
+                                                                                                            "simbolo": "MEM",
+                                                                                                            "filhos": [],
+                                                                                                            "token": [
+                                                                                                                "MEM",
+                                                                                                                "A",
+                                                                                                                12,
+                                                                                                                6
+                                                                                                            ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "simbolo": "cont_mem",
+                                                                                                            "filhos": [
+                                                                                                                {
+                                                                                                                    "simbolo": "MEM",
+                                                                                                                    "filhos": [],
+                                                                                                                    "token": [
+                                                                                                                        "MEM",
+                                                                                                                        "C",
+                                                                                                                        14,
+                                                                                                                        6
+                                                                                                                    ]
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "simbolo": "fim_mem",
+                                                                                                                    "filhos": [
+                                                                                                                        {
+                                                                                                                            "simbolo": "operador_final",
+                                                                                                                            "filhos": [
+                                                                                                                                {
+                                                                                                                                    "simbolo": "OPREL",
+                                                                                                                                    "filhos": [],
+                                                                                                                                    "token": [
+                                                                                                                                        "OPREL",
+                                                                                                                                        "<=",
+                                                                                                                                        16,
+                                                                                                                                        6
+                                                                                                                                    ]
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                                            "token": null
+                                                                                                                        }
+                                                                                                                    ],
+                                                                                                                    "token": null
+                                                                                                                }
+                                                                                                            ],
+                                                                                                            "token": null
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "token": null
+                                                                                                },
+                                                                                                {
+                                                                                                    "simbolo": "DPAR",
+                                                                                                    "filhos": [],
+                                                                                                    "token": [
+                                                                                                        "DPAR",
+                                                                                                        ")",
+                                                                                                        18,
+                                                                                                        6
+                                                                                                    ]
+                                                                                                }
+                                                                                            ],
+                                                                                            "token": null
+                                                                                        },
+                                                                                        {
+                                                                                            "simbolo": "cont_comando",
+                                                                                            "filhos": [
+                                                                                                {
+                                                                                                    "simbolo": "MEM",
+                                                                                                    "filhos": [],
+                                                                                                    "token": [
+                                                                                                        "MEM",
+                                                                                                        "D",
+                                                                                                        20,
+                                                                                                        6
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "simbolo": "fim_mem",
+                                                                                                    "filhos": [
+                                                                                                        {
+                                                                                                            "simbolo": "operador_final",
+                                                                                                            "filhos": [
+                                                                                                                {
+                                                                                                                    "simbolo": "SE",
+                                                                                                                    "filhos": [],
+                                                                                                                    "token": [
+                                                                                                                        "SE",
+                                                                                                                        "se",
+                                                                                                                        22,
+                                                                                                                        6
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ],
+                                                                                                            "token": null
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "token": null
+                                                                                                }
+                                                                                            ],
+                                                                                            "token": null
+                                                                                        }
+                                                                                    ],
+                                                                                    "token": null
+                                                                                },
+                                                                                {
+                                                                                    "simbolo": "DPAR",
+                                                                                    "filhos": [],
+                                                                                    "token": [
+                                                                                        "DPAR",
+                                                                                        ")",
+                                                                                        24,
+                                                                                        6
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "token": null
+                                                                        },
+                                                                        {
+                                                                            "simbolo": "operador_final",
+                                                                            "filhos": [
+                                                                                {
+                                                                                    "simbolo": "SE",
+                                                                                    "filhos": [],
+                                                                                    "token": [
+                                                                                        "SE",
+                                                                                        "se",
+                                                                                        26,
+                                                                                        6
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "token": null
+                                                                        }
+                                                                    ],
+                                                                    "token": null
+                                                                }
+                                                            ],
+                                                            "token": null
+                                                        },
+                                                        {
+                                                            "simbolo": "DPAR",
+                                                            "filhos": [],
+                                                            "token": [
+                                                                "DPAR",
+                                                                ")",
+                                                                28,
+                                                                6
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "token": null
+                                                },
+                                                {
+                                                    "simbolo": "lista_comandos",
+                                                    "filhos": [
+                                                        {
+                                                            "simbolo": "comando",
+                                                            "filhos": [
+                                                                {
+                                                                    "simbolo": "EPAR",
+                                                                    "filhos": [],
+                                                                    "token": [
+                                                                        "EPAR",
+                                                                        "(",
+                                                                        0,
+                                                                        7
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "simbolo": "conteudo",
+                                                                    "filhos": [
+                                                                        {
+                                                                            "simbolo": "NUM",
+                                                                            "filhos": [],
+                                                                            "token": [
+                                                                                "NUM",
+                                                                                "0",
+                                                                                1,
+                                                                                7
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "simbolo": "cont_num",
+                                                                            "filhos": [
+                                                                                {
+                                                                                    "simbolo": "RES",
+                                                                                    "filhos": [],
+                                                                                    "token": [
+                                                                                        "RES",
+                                                                                        "RES",
+                                                                                        3,
+                                                                                        7
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "token": null
+                                                                        }
+                                                                    ],
+                                                                    "token": null
+                                                                },
+                                                                {
+                                                                    "simbolo": "DPAR",
+                                                                    "filhos": [],
+                                                                    "token": [
+                                                                        "DPAR",
+                                                                        ")",
+                                                                        6,
+                                                                        7
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "token": null
+                                                        },
+                                                        {
+                                                            "simbolo": "lista_comandos",
+                                                            "filhos": [
+                                                                {
+                                                                    "simbolo": "ε",
+                                                                    "filhos": [],
+                                                                    "token": null
+                                                                }
+                                                            ],
+                                                            "token": null
+                                                        }
+                                                    ],
                                                     "token": null
                                                 }
                                             ],
@@ -452,7 +683,7 @@
                 "END",
                 "(END)",
                 0,
-                6
+                8
             ]
         }
     ],

@@ -9,14 +9,14 @@
             "tipo": "real",
             "linha_definicao": 2,
             "linhas_atribuicao": [
-                2,
-                4
+                2
             ],
-            "linha_ultima_atribuicao": 4,
+            "linha_ultima_atribuicao": 2,
             "linhas_uso": [
-                4
+                6,
+                6
             ],
-            "linha_ultimo_uso": 4
+            "linha_ultimo_uso": 6
         },
         "B": {
             "identificador": "B",
@@ -27,9 +27,35 @@
             ],
             "linha_ultima_atribuicao": 3,
             "linhas_uso": [
+                6
+            ],
+            "linha_ultimo_uso": 6
+        },
+        "C": {
+            "identificador": "C",
+            "tipo": "real",
+            "linha_definicao": 4,
+            "linhas_atribuicao": [
                 4
             ],
-            "linha_ultimo_uso": 4
+            "linha_ultima_atribuicao": 4,
+            "linhas_uso": [
+                6
+            ],
+            "linha_ultimo_uso": 6
+        },
+        "D": {
+            "identificador": "D",
+            "tipo": "real",
+            "linha_definicao": 5,
+            "linhas_atribuicao": [
+                5
+            ],
+            "linha_ultima_atribuicao": 5,
+            "linhas_uso": [
+                6
+            ],
+            "linha_ultimo_uso": 6
         }
     },
     "tipos_validados": {
@@ -48,25 +74,44 @@
             },
             {
                 "linha": 4,
-                "categoria": "operacao_relacional",
-                "operador": "<",
-                "tipo": "logico"
-            },
-            {
-                "linha": 4,
                 "categoria": "atribuicao_literal",
-                "variavel": "A",
+                "variavel": "C",
                 "tipo": "real"
             },
             {
-                "linha": 4,
-                "categoria": "repeticao",
+                "linha": 5,
+                "categoria": "atribuicao_literal",
+                "variavel": "D",
+                "tipo": "real"
+            },
+            {
+                "linha": 6,
+                "categoria": "operacao_relacional",
+                "operador": ">=",
+                "tipo": "logico"
+            },
+            {
+                "linha": 6,
+                "categoria": "operacao_relacional",
+                "operador": "<=",
+                "tipo": "logico"
+            },
+            {
+                "linha": 6,
+                "categoria": "decisao",
                 "tipo_condicao": "logico",
                 "tipo": "real",
                 "pode_ser_null": true
             },
             {
-                "linha": 5,
+                "linha": 6,
+                "categoria": "decisao",
+                "tipo_condicao": "logico",
+                "tipo": "real",
+                "pode_ser_null": true
+            },
+            {
+                "linha": 7,
                 "categoria": "res",
                 "indice": 0,
                 "tipo": "real",
@@ -87,10 +132,20 @@
             {
                 "linha": 4,
                 "tipo": "real",
-                "pode_ser_null": true
+                "pode_ser_null": false
             },
             {
                 "linha": 5,
+                "tipo": "real",
+                "pode_ser_null": false
+            },
+            {
+                "linha": 6,
+                "tipo": "real",
+                "pode_ser_null": true
+            },
+            {
+                "linha": 7,
                 "tipo": "real",
                 "pode_ser_null": true
             }
@@ -103,7 +158,7 @@
             "destino": "A",
             "valor": {
                 "categoria": "literal",
-                "valor": "1",
+                "valor": "2",
                 "tipo": "inteiro",
                 "linha": 2
             },
@@ -116,7 +171,7 @@
             "destino": "B",
             "valor": {
                 "categoria": "literal",
-                "valor": "2",
+                "valor": "1",
                 "tipo": "inteiro",
                 "linha": 3
             },
@@ -125,57 +180,106 @@
             "indice_resultado": 2
         },
         {
-            "categoria": "repeticao",
+            "categoria": "atribuicao_literal",
+            "destino": "C",
+            "valor": {
+                "categoria": "literal",
+                "valor": "1",
+                "tipo": "inteiro",
+                "linha": 4
+            },
+            "tipo_resultado": "real",
+            "linha": 4,
+            "indice_resultado": 3
+        },
+        {
+            "categoria": "atribuicao_literal",
+            "destino": "D",
+            "valor": {
+                "categoria": "literal",
+                "valor": "4",
+                "tipo": "inteiro",
+                "linha": 5
+            },
+            "tipo_resultado": "real",
+            "linha": 5,
+            "indice_resultado": 4
+        },
+        {
+            "categoria": "decisao",
             "condicao": {
                 "categoria": "operacao_relacional",
-                "operador": "<",
+                "operador": ">=",
                 "esquerda": {
                     "categoria": "variavel",
                     "nome": "A",
                     "tipo": "real",
                     "linha_definicao": 2,
-                    "linha": 4
+                    "linha": 6
                 },
                 "direita": {
                     "categoria": "variavel",
                     "nome": "B",
                     "tipo": "real",
                     "linha_definicao": 3,
-                    "linha": 4
+                    "linha": 6
                 },
                 "tipo_resultado": "logico",
-                "linha": 4
+                "linha": 6
             },
             "acao": {
-                "categoria": "atribuicao_literal",
-                "destino": "A",
-                "valor": {
-                    "categoria": "literal",
-                    "valor": "2",
-                    "tipo": "inteiro",
-                    "linha": 4
+                "categoria": "decisao",
+                "condicao": {
+                    "categoria": "operacao_relacional",
+                    "operador": "<=",
+                    "esquerda": {
+                        "categoria": "variavel",
+                        "nome": "A",
+                        "tipo": "real",
+                        "linha_definicao": 2,
+                        "linha": 6
+                    },
+                    "direita": {
+                        "categoria": "variavel",
+                        "nome": "C",
+                        "tipo": "real",
+                        "linha_definicao": 4,
+                        "linha": 6
+                    },
+                    "tipo_resultado": "logico",
+                    "linha": 6
                 },
+                "acao": {
+                    "categoria": "variavel",
+                    "nome": "D",
+                    "tipo": "real",
+                    "linha_definicao": 5,
+                    "linha": 6
+                },
+                "tipo_condicao": "logico",
                 "tipo_resultado": "real",
-                "linha": 4
+                "pode_ser_null": true,
+                "acao_pode_ser_null": false,
+                "valor_sem_execucao": "NULL",
+                "linha": 6
             },
             "tipo_condicao": "logico",
             "tipo_resultado": "real",
             "pode_ser_null": true,
-            "acao_pode_ser_null": false,
+            "acao_pode_ser_null": true,
             "valor_sem_execucao": "NULL",
-            "resultado_quando_executa": "resultado_da_ultima_execucao",
-            "linha": 4,
-            "indice_resultado": 3
+            "linha": 6,
+            "indice_resultado": 5
         },
         {
             "categoria": "res",
             "indice": 0,
-            "posicao_historico": 2,
+            "posicao_historico": 4,
             "tipo_resultado": "real",
             "pode_ser_null": true,
-            "linha_resultado_referenciado": 4,
-            "linha": 5,
-            "indice_resultado": 4
+            "linha_resultado_referenciado": 6,
+            "linha": 7,
+            "indice_resultado": 6
         }
     ]
 }
