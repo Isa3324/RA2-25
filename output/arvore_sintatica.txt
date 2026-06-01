@@ -4,12 +4,30 @@ programa
     comando
       EPAR -> ('EPAR', '(', 0, 2)
       conteudo
-        NUM -> ('NUM', '2.00', 1, 2)
+        NUM -> ('NUM', '10', 1, 2)
         cont_num
-          NUM -> ('NUM', '3.00', 6, 2)
-          operador_final
-            OP -> ('OP', '^', 11, 2)
-      DPAR -> ('DPAR', ')', 12, 2)
+          MEM -> ('MEM', 'A', 4, 2)
+          fim_mem
+            ε
+      DPAR -> ('DPAR', ')', 5, 2)
     lista_comandos
-      ε
-  END -> ('END', '(END)', 0, 3)
+      comando
+        EPAR -> ('EPAR', '(', 0, 3)
+        conteudo
+          NUM -> ('NUM', '20', 1, 3)
+          cont_num
+            MEM -> ('MEM', 'B', 4, 3)
+            fim_mem
+              ε
+        DPAR -> ('DPAR', ')', 5, 3)
+      lista_comandos
+        comando
+          EPAR -> ('EPAR', '(', 0, 4)
+          conteudo
+            NUM -> ('NUM', '0', 1, 4)
+            cont_num
+              RES -> ('RES', 'RES', 3, 4)
+          DPAR -> ('DPAR', ')', 6, 4)
+        lista_comandos
+          ε
+  END -> ('END', '(END)', 0, 5)

@@ -12,44 +12,59 @@ _start:
     @ ==========================================
     @ Comando 1 - linha fonte 2
     @ ==========================================
-    @ operacao aritmetica ^
-    @ literal 2.00
+    @ atribuicao literal para A
+    @ literal 10
     ldr r0, =const_0
     vldr d0, [r0]
     mov r7, #0
     cmp r7, #0
     bne erro_null
-    vstr d0, [r10]
-    add r10, r10, #8
-    @ literal 3.00
-    ldr r0, =const_1
-    vldr d0, [r0]
-    mov r7, #0
-    cmp r7, #0
-    bne erro_null
-    vmov.f64 d1, d0
-    sub r10, r10, #8
-    vldr d0, [r10]
-    @ potenciacao: expoente inteiro nao negativo
-    vcvt.s32.f64 s4, d1
-    vmov r1, s4
-    cmp r1, #0
-    blt erro_expoente
-    vmov.f64 d3, d0
-    ldr r0, =const_um
-    vldr d0, [r0]
-pot_loop_0:
-    cmp r1, #0
-    beq pot_fim_1
-    vmul.f64 d0, d0, d3
-    sub r1, r1, #1
-    b pot_loop_0
-pot_fim_1:
+    ldr r9, =mem_A
+    vstr d0, [r9]
     mov r7, #0
     @ salva resultado do comando 1
     ldr r8, =resultados
     vstr d0, [r8]
     ldr r8, =resultados_null
+    str r7, [r8]
+
+    @ ==========================================
+    @ Comando 2 - linha fonte 3
+    @ ==========================================
+    @ atribuicao literal para B
+    @ literal 20
+    ldr r0, =const_1
+    vldr d0, [r0]
+    mov r7, #0
+    cmp r7, #0
+    bne erro_null
+    ldr r9, =mem_B
+    vstr d0, [r9]
+    mov r7, #0
+    @ salva resultado do comando 2
+    ldr r8, =resultados
+    add r8, r8, #8
+    vstr d0, [r8]
+    ldr r8, =resultados_null
+    add r8, r8, #4
+    str r7, [r8]
+
+    @ ==========================================
+    @ Comando 3 - linha fonte 4
+    @ ==========================================
+    @ RES 0: carrega resultado do comando 2
+    ldr r8, =resultados
+    add r8, r8, #8
+    vldr d0, [r8]
+    ldr r8, =resultados_null
+    add r8, r8, #4
+    ldr r7, [r8]
+    @ salva resultado do comando 3
+    ldr r8, =resultados
+    add r8, r8, #16
+    vstr d0, [r8]
+    ldr r8, =resultados_null
+    add r8, r8, #8
     str r7, [r8]
 
     b fim
@@ -73,9 +88,11 @@ erro_expoente:
     .align 3
 const_zero: .double 0.0
 const_um:   .double 1.0
-const_0: .double 2.00
-const_1: .double 3.00
+const_0: .double 10.0
+const_1: .double 20.0
+mem_A: .double 0.0
+mem_B: .double 0.0
     .align 3
-resultados:      .space 8
-resultados_null: .space 4
+resultados:      .space 24
+resultados_null: .space 12
 pilha_expr:      .space 2048

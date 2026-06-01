@@ -557,37 +557,52 @@ def adicionarOffset(codigo, registrador, offset):
 
 def gerarRes(no, estado, indice_atual):
     """
-    RES busca resultado de um comando principal anterior.
+    Gera Assembly para o comando isolado (N RES).
 
-    Exemplo:
-        indice_atual = 5
-        RES 1 -> busca comando 4
+    Regras:
+    - N começa em zero;
+    - (0 RES) busca o resultado imediatamente anterior;
+    - (1 RES) busca o segundo resultado anterior;
+    - (2 RES) busca o terceiro resultado anterior;
+    - o valor e a flag NULL da linha referenciada são copiados;
+    - RES nunca referencia o próprio comando atual.
     """
 
     indice = int(no["indice"])
-    alvo = indice_atual - indice
+
+    # A posição começa em zero:
+    # indice_atual - 1         -> comando imediatamente anterior
+    # indice_atual - (indice+1) -> posição pedida por RES
+    alvo = indice_atual - (indice + 1)
 
     if alvo < 1:
         raise ErroGeracaoAssembly(
             f"RES inválido na linha {no.get('linha', '?')}: "
-            f"não existe resultado anterior suficiente."
+            f"a posição anterior {indice} não existe."
         )
 
+    # Cada resultado double ocupa 8 bytes.
+    # Cada flag NULL ocupa 4 bytes.
     offset_valor = (alvo - 1) * 8
     offset_null = (alvo - 1) * 4
 
-    codigo = f"    @ RES {indice}: carrega resultado do comando {alvo}\n"
+    codigo = (
+        f"    @ RES {indice}: carrega resultado do comando {alvo}\n"
+    )
 
+    # Carrega o valor exatamente como foi produzido.
     codigo += "    ldr r8, =resultados\n"
     codigo = adicionarOffset(codigo, "r8", offset_valor)
     codigo += "    vldr d0, [r8]\n"
 
+    # Carrega a flag NULL correspondente.
+    # r7 = 0 -> existe valor
+    # r7 = 1 -> resultado é NULL
     codigo += "    ldr r8, =resultados_null\n"
     codigo = adicionarOffset(codigo, "r8", offset_null)
     codigo += "    ldr r7, [r8]\n"
 
     return codigo
-
 
 def gerarNo(no, estado, indice_atual):
     """

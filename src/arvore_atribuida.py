@@ -176,16 +176,31 @@ def converterComando(
             }
 
         # Caso: (N RES)
+        # N indica uma posição entre os resultados anteriores,
+        # contando a partir de zero:
+        # 0 -> resultado imediatamente anterior
+        # 1 -> segundo resultado anterior
+        # 2 -> terceiro resultado anterior
         if elementoEhToken(primeiro, "NUM") and elementoEhToken(segundo, "RES"):
             indice = int(primeiro[1])
 
-            resultado_referenciado = historico_resultados[-indice]
+            if indice < 0 or indice >= len(historico_resultados):
+                raise ValueError(
+                    f"Não é possível gerar árvore atribuída na linha {linha}: "
+                    f"RES solicitou a posição anterior {indice}, "
+                    f"mas existem apenas {len(historico_resultados)} "
+                    f"resultado(s) anterior(es) disponível(is)."
+                )
+
+            resultado_referenciado = historico_resultados[-(indice + 1)]
 
             return {
                 "categoria": "res",
                 "indice": indice,
+                "posicao_historico": len(historico_resultados) - (indice + 1),
                 "tipo_resultado": resultado_referenciado["tipo_resultado"],
                 "pode_ser_null": resultado_referenciado.get("pode_ser_null", False),
+                "linha_resultado_referenciado": resultado_referenciado["linha"],
                 "linha": linha
             }
 

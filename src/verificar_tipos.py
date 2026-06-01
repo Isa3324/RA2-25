@@ -269,44 +269,66 @@ def validarRes(
     anotacoes,
     erros
 ):
+    """
+    Valida o comando (N RES).
+
+    Regras:
+    - N deve ser um literal NUM escrito como inteiro;
+    - N deve ser não negativo;
+    - N representa uma posição nos resultados anteriores, começando em zero:
+        0 -> resultado imediatamente anterior;
+        1 -> segundo resultado anterior;
+        2 -> terceiro resultado anterior;
+    - RES retorna exatamente o tipo e a possibilidade de NULL
+      do resultado referenciado.
+    """
+
     if not elementoEhToken(primeiro, "NUM"):
         adicionarErro(
             erros,
-            f"Erro semântico na linha {linha}: RES exige um índice numérico inteiro."
+            f"Erro semântico na linha {linha}: "
+            f"RES exige um índice inteiro não negativo."
         )
         return TIPO_ERRO
 
     valor = primeiro[1]
     tipo_indice = tipoLiteralNumerico(valor)
 
+    # Em RES, o índice deve ser escrito como inteiro.
+    # Portanto, 0 e 1 são válidos; 0.00 e 1.00 não são.
     if tipo_indice != TIPO_INTEIRO:
         adicionarErro(
             erros,
             f"Erro semântico na linha {linha}: "
-            f"RES exige índice inteiro, mas recebeu {valor}."
+            f"RES exige índice inteiro não negativo, mas recebeu {valor}."
         )
         return TIPO_ERRO
 
     indice = int(valor)
 
-    if indice <= 0:
+    if indice < 0:
         adicionarErro(
             erros,
             f"Erro semântico na linha {linha}: "
-            f"RES deve referenciar pelo menos 1 resultado anterior."
+            f"RES exige índice inteiro não negativo, mas recebeu {valor}."
         )
         return TIPO_ERRO
 
-    if indice > len(resultados_anteriores):
+    # Como a contagem começa em zero:
+    # com 1 resultado anterior disponível, somente o índice 0 existe.
+    if indice >= len(resultados_anteriores):
         adicionarErro(
             erros,
             f"Erro semântico na linha {linha}: "
-            f"RES solicitou o resultado de {indice} linha(s) anterior(es), "
-            f"mas existem apenas {len(resultados_anteriores)} resultado(s) disponível(is)."
+            f"RES solicitou a posição anterior {indice}, "
+            f"mas existem apenas {len(resultados_anteriores)} "
+            f"resultado(s) anterior(es) disponível(is)."
         )
         return TIPO_ERRO
 
-    resultado_referenciado = resultados_anteriores[-indice]
+    # Índice zero busca o último resultado anterior.
+    # Índice um busca o penúltimo, e assim por diante.
+    resultado_referenciado = resultados_anteriores[-(indice + 1)]
 
     tipo_referenciado = resultado_referenciado["tipo"]
     pode_ser_null = resultado_referenciado.get("pode_ser_null", False)
