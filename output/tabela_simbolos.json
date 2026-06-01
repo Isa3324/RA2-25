@@ -1,27 +1,7 @@
 {
-    "tabela_simbolos": {
-        "A": {
-            "identificador": "A",
-            "tipo": "real",
-            "linha_definicao": 2,
-            "linhas_atribuicao": [
-                2
-            ],
-            "linha_ultima_atribuicao": 2,
-            "linhas_uso": [],
-            "linha_ultimo_uso": null
-        },
-        "B": {
-            "identificador": "B",
-            "tipo": "real",
-            "linha_definicao": 3,
-            "linhas_atribuicao": [
-                3
-            ],
-            "linha_ultima_atribuicao": 3,
-            "linhas_uso": [],
-            "linha_ultimo_uso": null
-        }
-    },
-    "erros_semanticos": []
+    "tabela_simbolos": {},
+    "erros_semanticos": [
+        "Erro semântico na linha 2: variável A utilizada antes de sua definição.",
+        "Erro semântico na linha 2: variável B utilizada antes de sua definição."
+    ]
 }

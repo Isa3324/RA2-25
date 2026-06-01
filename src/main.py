@@ -8,12 +8,34 @@ Nome do grupo no Canvas: RA2 24
 # Não consegui pegar o grupo do RA3, pois todos já estão com pessoas
 #main.py
 import sys
+import os
 from semantico import prepararEntradaSemantica
 from tabela_simbolos import lerArvoreJson, construirTabelaSimbolos
 from verificar_tipos import verificarTipos
 from arvore_atribuida import gerarArvoreAtribuida
 from assembly_generator import gerarAssembly, salvarAssembly, ErroGeracaoAssembly
 
+def limparSaidasAnteriores():
+    """
+    Remove os artefatos produzidos pela execução anterior.
+
+    Isso evita que um Assembly antigo permaneça na pasta output
+    quando o programa atual possuir erro léxico, sintático ou semântico.
+    """
+
+    arquivos_saida = [
+        "output/tokens_ultima_execucao.txt",
+        "output/arvore_sintatica.txt",
+        "output/arvore_sintatica.json",
+        "output/tabela_simbolos.json",
+        "output/tipos_inferidos.json",
+        "output/arvore_atribuida.json",
+        "output/assembly_ultima_execucao.s"
+    ]
+
+    for caminho in arquivos_saida:
+        if os.path.exists(caminho):
+            os.remove(caminho)
 
 def main():
     # ver se tem um arquivo depois do nome do programa
@@ -22,7 +44,7 @@ def main():
     if len(sys.argv) != 2 or not sys.argv[1].endswith(".txt"):
         print("Para rodar deve ter um arquivo.txt, exemplo:: python src/main.py <arquivo.txt>")
         return
-
+    limparSaidasAnteriores()
     nome_arquivo = sys.argv[1]
 
 

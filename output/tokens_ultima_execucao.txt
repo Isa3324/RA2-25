@@ -12,75 +12,33 @@
         "linha": 2
     },
     {
-        "tipo": "NUM",
-        "valor": "10",
-        "posicao": 1,
-        "linha": 2
-    },
-    {
         "tipo": "MEM",
         "valor": "A",
-        "posicao": 4,
-        "linha": 2
-    },
-    {
-        "tipo": "DPAR",
-        "valor": ")",
-        "posicao": 5,
-        "linha": 2
-    },
-    {
-        "tipo": "EPAR",
-        "valor": "(",
-        "posicao": 0,
-        "linha": 3
-    },
-    {
-        "tipo": "NUM",
-        "valor": "20",
         "posicao": 1,
-        "linha": 3
+        "linha": 2
     },
     {
         "tipo": "MEM",
         "valor": "B",
-        "posicao": 4,
-        "linha": 3
-    },
-    {
-        "tipo": "DPAR",
-        "valor": ")",
-        "posicao": 5,
-        "linha": 3
-    },
-    {
-        "tipo": "EPAR",
-        "valor": "(",
-        "posicao": 0,
-        "linha": 4
-    },
-    {
-        "tipo": "NUM",
-        "valor": "0",
-        "posicao": 1,
-        "linha": 4
-    },
-    {
-        "tipo": "RES",
-        "valor": "RES",
         "posicao": 3,
-        "linha": 4
+        "linha": 2
+    },
+    {
+        "tipo": "OP",
+        "valor": "+",
+        "posicao": 5,
+        "linha": 2
     },
     {
         "tipo": "DPAR",
         "valor": ")",
         "posicao": 6,
-        "linha": 4
+        "linha": 2
     },
     {
         "tipo": "END",
         "valor": "(END)",
         "posicao": 0,
-        "linha": 5
+        "linha": 3
     }
 ]
