@@ -1,0 +1,80 @@
+[
+    {
+        "tipo": "START",
+        "valor": "(START)",
+        "posicao": 0,
+        "linha": 1
+    },
+    {
+        "tipo": "EPAR",
+        "valor": "(",
+        "posicao": 0,
+        "linha": 2
+    },
+    {
+        "tipo": "NUM",
+        "valor": "1",
+        "posicao": 1,
+        "linha": 2
+    },
+    {
+        "tipo": "MEM",
+        "valor": "A",
+        "posicao": 3,
+        "linha": 2
+    },
+    {
+        "tipo": "DPAR",
+        "valor": ")",
+        "posicao": 4,
+        "linha": 2
+    },
+    {
+        "tipo": "EPAR",
+        "valor": "(",
+        "posicao": 0,
+        "linha": 3
+    },
+    {
+        "tipo": "NUM",
+        "valor": "2",
+        "posicao": 1,
+        "linha": 3
+    },
+    {
+        "tipo": "MEM",
+        "valor": "A",
+        "posicao": 3,
+        "linha": 3
+    },
+    {
+        "tipo": "DPAR",
+        "valor": ")",
+        "posicao": 4,
+        "linha": 3
+    },
+    {
+        "tipo": "EPAR",
+        "valor": "(",
+        "posicao": 0,
+        "linha": 4
+    },
+    {
+        "tipo": "MEM",
+        "valor": "A",
+        "posicao": 1,
+        "linha": 4
+    },
+    {
+        "tipo": "DPAR",
+        "valor": ")",
+        "posicao": 2,
+        "linha": 4
+    },
+    {
+        "tipo": "END",
+        "valor": "(END)",
+        "posicao": 0,
+        "linha": 5
+    }
+]

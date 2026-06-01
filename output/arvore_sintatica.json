@@ -1,0 +1,246 @@
+{
+    "simbolo": "programa",
+    "filhos": [
+        {
+            "simbolo": "START",
+            "filhos": [],
+            "token": [
+                "START",
+                "(START)",
+                0,
+                1
+            ]
+        },
+        {
+            "simbolo": "lista_comandos",
+            "filhos": [
+                {
+                    "simbolo": "comando",
+                    "filhos": [
+                        {
+                            "simbolo": "EPAR",
+                            "filhos": [],
+                            "token": [
+                                "EPAR",
+                                "(",
+                                0,
+                                2
+                            ]
+                        },
+                        {
+                            "simbolo": "conteudo",
+                            "filhos": [
+                                {
+                                    "simbolo": "NUM",
+                                    "filhos": [],
+                                    "token": [
+                                        "NUM",
+                                        "1",
+                                        1,
+                                        2
+                                    ]
+                                },
+                                {
+                                    "simbolo": "cont_num",
+                                    "filhos": [
+                                        {
+                                            "simbolo": "MEM",
+                                            "filhos": [],
+                                            "token": [
+                                                "MEM",
+                                                "A",
+                                                3,
+                                                2
+                                            ]
+                                        },
+                                        {
+                                            "simbolo": "fim_mem",
+                                            "filhos": [
+                                                {
+                                                    "simbolo": "ε",
+                                                    "filhos": [],
+                                                    "token": null
+                                                }
+                                            ],
+                                            "token": null
+                                        }
+                                    ],
+                                    "token": null
+                                }
+                            ],
+                            "token": null
+                        },
+                        {
+                            "simbolo": "DPAR",
+                            "filhos": [],
+                            "token": [
+                                "DPAR",
+                                ")",
+                                4,
+                                2
+                            ]
+                        }
+                    ],
+                    "token": null
+                },
+                {
+                    "simbolo": "lista_comandos",
+                    "filhos": [
+                        {
+                            "simbolo": "comando",
+                            "filhos": [
+                                {
+                                    "simbolo": "EPAR",
+                                    "filhos": [],
+                                    "token": [
+                                        "EPAR",
+                                        "(",
+                                        0,
+                                        3
+                                    ]
+                                },
+                                {
+                                    "simbolo": "conteudo",
+                                    "filhos": [
+                                        {
+                                            "simbolo": "NUM",
+                                            "filhos": [],
+                                            "token": [
+                                                "NUM",
+                                                "2",
+                                                1,
+                                                3
+                                            ]
+                                        },
+                                        {
+                                            "simbolo": "cont_num",
+                                            "filhos": [
+                                                {
+                                                    "simbolo": "MEM",
+                                                    "filhos": [],
+                                                    "token": [
+                                                        "MEM",
+                                                        "A",
+                                                        3,
+                                                        3
+                                                    ]
+                                                },
+                                                {
+                                                    "simbolo": "fim_mem",
+                                                    "filhos": [
+                                                        {
+                                                            "simbolo": "ε",
+                                                            "filhos": [],
+                                                            "token": null
+                                                        }
+                                                    ],
+                                                    "token": null
+                                                }
+                                            ],
+                                            "token": null
+                                        }
+                                    ],
+                                    "token": null
+                                },
+                                {
+                                    "simbolo": "DPAR",
+                                    "filhos": [],
+                                    "token": [
+                                        "DPAR",
+                                        ")",
+                                        4,
+                                        3
+                                    ]
+                                }
+                            ],
+                            "token": null
+                        },
+                        {
+                            "simbolo": "lista_comandos",
+                            "filhos": [
+                                {
+                                    "simbolo": "comando",
+                                    "filhos": [
+                                        {
+                                            "simbolo": "EPAR",
+                                            "filhos": [],
+                                            "token": [
+                                                "EPAR",
+                                                "(",
+                                                0,
+                                                4
+                                            ]
+                                        },
+                                        {
+                                            "simbolo": "conteudo",
+                                            "filhos": [
+                                                {
+                                                    "simbolo": "MEM",
+                                                    "filhos": [],
+                                                    "token": [
+                                                        "MEM",
+                                                        "A",
+                                                        1,
+                                                        4
+                                                    ]
+                                                },
+                                                {
+                                                    "simbolo": "cont_mem",
+                                                    "filhos": [
+                                                        {
+                                                            "simbolo": "ε",
+                                                            "filhos": [],
+                                                            "token": null
+                                                        }
+                                                    ],
+                                                    "token": null
+                                                }
+                                            ],
+                                            "token": null
+                                        },
+                                        {
+                                            "simbolo": "DPAR",
+                                            "filhos": [],
+                                            "token": [
+                                                "DPAR",
+                                                ")",
+                                                2,
+                                                4
+                                            ]
+                                        }
+                                    ],
+                                    "token": null
+                                },
+                                {
+                                    "simbolo": "lista_comandos",
+                                    "filhos": [
+                                        {
+                                            "simbolo": "ε",
+                                            "filhos": [],
+                                            "token": null
+                                        }
+                                    ],
+                                    "token": null
+                                }
+                            ],
+                            "token": null
+                        }
+                    ],
+                    "token": null
+                }
+            ],
+            "token": null
+        },
+        {
+            "simbolo": "END",
+            "filhos": [],
+            "token": [
+                "END",
+                "(END)",
+                0,
+                5
+            ]
+        }
+    ],
+    "token": null
+}

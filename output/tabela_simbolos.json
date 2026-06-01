@@ -1,0 +1,19 @@
+{
+    "tabela_simbolos": {
+        "A": {
+            "identificador": "A",
+            "tipo": "real",
+            "linha_definicao": 2,
+            "linhas_atribuicao": [
+                2,
+                3
+            ],
+            "linha_ultima_atribuicao": 3,
+            "linhas_uso": [
+                4
+            ],
+            "linha_ultimo_uso": 4
+        }
+    },
+    "erros_semanticos": []
+}

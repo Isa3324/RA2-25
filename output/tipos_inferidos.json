@@ -1,0 +1,40 @@
+{
+    "tipos_inferidos": [
+        {
+            "linha": 2,
+            "categoria": "atribuicao_literal",
+            "variavel": "A",
+            "tipo": "real"
+        },
+        {
+            "linha": 3,
+            "categoria": "atribuicao_literal",
+            "variavel": "A",
+            "tipo": "real"
+        },
+        {
+            "linha": 4,
+            "categoria": "uso_variavel",
+            "expressao": "A",
+            "tipo": "real"
+        }
+    ],
+    "resultados_anteriores": [
+        {
+            "linha": 2,
+            "tipo": "real",
+            "pode_ser_null": false
+        },
+        {
+            "linha": 3,
+            "tipo": "real",
+            "pode_ser_null": false
+        },
+        {
+            "linha": 4,
+            "tipo": "real",
+            "pode_ser_null": false
+        }
+    ],
+    "erros_semanticos": []
+}

@@ -1,0 +1,103 @@
+{
+    "categoria": "programa",
+    "tipo": "programa",
+    "inicio": "START",
+    "fim": "END",
+    "tabela_simbolos": {
+        "A": {
+            "identificador": "A",
+            "tipo": "real",
+            "linha_definicao": 2,
+            "linhas_atribuicao": [
+                2,
+                3
+            ],
+            "linha_ultima_atribuicao": 3,
+            "linhas_uso": [
+                4
+            ],
+            "linha_ultimo_uso": 4
+        }
+    },
+    "tipos_validados": {
+        "tipos_inferidos": [
+            {
+                "linha": 2,
+                "categoria": "atribuicao_literal",
+                "variavel": "A",
+                "tipo": "real"
+            },
+            {
+                "linha": 3,
+                "categoria": "atribuicao_literal",
+                "variavel": "A",
+                "tipo": "real"
+            },
+            {
+                "linha": 4,
+                "categoria": "uso_variavel",
+                "expressao": "A",
+                "tipo": "real"
+            }
+        ],
+        "resultados_anteriores": [
+            {
+                "linha": 2,
+                "tipo": "real",
+                "pode_ser_null": false
+            },
+            {
+                "linha": 3,
+                "tipo": "real",
+                "pode_ser_null": false
+            },
+            {
+                "linha": 4,
+                "tipo": "real",
+                "pode_ser_null": false
+            }
+        ],
+        "erros_semanticos": []
+    },
+    "comandos": [
+        {
+            "categoria": "atribuicao_literal",
+            "destino": "A",
+            "valor": {
+                "categoria": "literal",
+                "valor": "1",
+                "tipo": "inteiro",
+                "linha": 2
+            },
+            "tipo_resultado": "real",
+            "linha": 2,
+            "indice_resultado": 1
+        },
+        {
+            "categoria": "atribuicao_literal",
+            "destino": "A",
+            "valor": {
+                "categoria": "literal",
+                "valor": "2",
+                "tipo": "inteiro",
+                "linha": 3
+            },
+            "tipo_resultado": "real",
+            "linha": 3,
+            "indice_resultado": 2
+        },
+        {
+            "categoria": "leitura_memoria",
+            "variavel": {
+                "categoria": "variavel",
+                "nome": "A",
+                "tipo": "real",
+                "linha_definicao": 2,
+                "linha": 4
+            },
+            "tipo_resultado": "real",
+            "linha": 4,
+            "indice_resultado": 3
+        }
+    ]
+}
