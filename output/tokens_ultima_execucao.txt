@@ -12,33 +12,147 @@
         "linha": 2
     },
     {
-        "tipo": "MEM",
-        "valor": "A",
+        "tipo": "NUM",
+        "valor": "1",
         "posicao": 1,
         "linha": 2
     },
     {
         "tipo": "MEM",
-        "valor": "B",
+        "valor": "A",
         "posicao": 3,
-        "linha": 2
-    },
-    {
-        "tipo": "OP",
-        "valor": "+",
-        "posicao": 5,
         "linha": 2
     },
     {
         "tipo": "DPAR",
         "valor": ")",
-        "posicao": 6,
+        "posicao": 4,
         "linha": 2
+    },
+    {
+        "tipo": "EPAR",
+        "valor": "(",
+        "posicao": 0,
+        "linha": 3
+    },
+    {
+        "tipo": "NUM",
+        "valor": "2",
+        "posicao": 1,
+        "linha": 3
+    },
+    {
+        "tipo": "MEM",
+        "valor": "B",
+        "posicao": 3,
+        "linha": 3
+    },
+    {
+        "tipo": "DPAR",
+        "valor": ")",
+        "posicao": 4,
+        "linha": 3
+    },
+    {
+        "tipo": "EPAR",
+        "valor": "(",
+        "posicao": 0,
+        "linha": 4
+    },
+    {
+        "tipo": "EPAR",
+        "valor": "(",
+        "posicao": 1,
+        "linha": 4
+    },
+    {
+        "tipo": "MEM",
+        "valor": "A",
+        "posicao": 2,
+        "linha": 4
+    },
+    {
+        "tipo": "MEM",
+        "valor": "B",
+        "posicao": 4,
+        "linha": 4
+    },
+    {
+        "tipo": "OPREL",
+        "valor": "<",
+        "posicao": 6,
+        "linha": 4
+    },
+    {
+        "tipo": "DPAR",
+        "valor": ")",
+        "posicao": 7,
+        "linha": 4
+    },
+    {
+        "tipo": "EPAR",
+        "valor": "(",
+        "posicao": 9,
+        "linha": 4
+    },
+    {
+        "tipo": "NUM",
+        "valor": "2",
+        "posicao": 10,
+        "linha": 4
+    },
+    {
+        "tipo": "MEM",
+        "valor": "A",
+        "posicao": 12,
+        "linha": 4
+    },
+    {
+        "tipo": "DPAR",
+        "valor": ")",
+        "posicao": 13,
+        "linha": 4
+    },
+    {
+        "tipo": "ENQUANTO",
+        "valor": "enquanto",
+        "posicao": 15,
+        "linha": 4
+    },
+    {
+        "tipo": "DPAR",
+        "valor": ")",
+        "posicao": 23,
+        "linha": 4
+    },
+    {
+        "tipo": "EPAR",
+        "valor": "(",
+        "posicao": 0,
+        "linha": 5
+    },
+    {
+        "tipo": "NUM",
+        "valor": "0",
+        "posicao": 1,
+        "linha": 5
+    },
+    {
+        "tipo": "RES",
+        "valor": "RES",
+        "posicao": 3,
+        "linha": 5
+    },
+    {
+        "tipo": "DPAR",
+        "valor": ")",
+        "posicao": 6,
+        "linha": 5
     },
     {
         "tipo": "END",
         "valor": "(END)",
         "posicao": 0,
-        "linha": 3
+        "linha": 6
     }
 ]

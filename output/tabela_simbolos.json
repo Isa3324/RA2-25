@@ -1,7 +1,32 @@
 {
-    "tabela_simbolos": {},
-    "erros_semanticos": [
-        "Erro semântico na linha 2: variável A utilizada antes de sua definição.",
-        "Erro semântico na linha 2: variável B utilizada antes de sua definição."
-    ]
+    "tabela_simbolos": {
+        "A": {
+            "identificador": "A",
+            "tipo": "real",
+            "linha_definicao": 2,
+            "linhas_atribuicao": [
+                2,
+                4
+            ],
+            "linha_ultima_atribuicao": 4,
+            "linhas_uso": [
+                4
+            ],
+            "linha_ultimo_uso": 4
+        },
+        "B": {
+            "identificador": "B",
+            "tipo": "real",
+            "linha_definicao": 3,
+            "linhas_atribuicao": [
+                3
+            ],
+            "linha_ultima_atribuicao": 3,
+            "linhas_uso": [
+                4
+            ],
+            "linha_ultimo_uso": 4
+        }
+    },
+    "erros_semanticos": []
 }

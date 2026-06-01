@@ -95,6 +95,34 @@ def textoDoElemento(elemento):
 
     return "?"
 
+def resultadoPodeSerNull(elemento):
+    """
+    Verifica se o resultado direto de um elemento pode ser NULL.
+
+    Na linguagem atual:
+    - se pode retornar NULL;
+    - enquanto pode retornar NULL;
+    - RES não precisa ser tratado aqui, pois RES só pode aparecer
+      como comando principal isolado.
+    """
+
+    if not elementoEhComandoAninhado(elemento):
+        return False
+
+    elementos_internos = separarElementos(elemento)
+
+    if len(elementos_internos) != 3:
+        return False
+
+    operador = elementos_internos[2]
+
+    if elementoEhToken(operador, "SE"):
+        return True
+
+    if elementoEhToken(operador, "ENQUANTO"):
+        return True
+
+    return False
 
 def inferirTipoElemento(
     elemento,
@@ -570,8 +598,15 @@ def inferirTipoComando(
         if elementoEhToken(operador, "OP"):
             simbolo_operador = operador[1]
 
-            # Potenciação possui uma regra própria:
-            # o expoente deve ser literal inteiro não negativo.
+            if resultadoPodeSerNull(primeiro) or resultadoPodeSerNull(segundo):
+                adicionarErro(
+                    erros,
+                    f"Erro semântico na linha {linha}: "
+                    f"o operador {simbolo_operador} não pode utilizar "
+                    f"um resultado que pode ser NULL."
+                )
+                return TIPO_ERRO
+
             if simbolo_operador == OPERADOR_POTENCIA:
                 tipo_resultado = validarPotenciacao(
                     segundo,
@@ -580,8 +615,6 @@ def inferirTipoComando(
                     linha,
                     erros
                 )
-
-            # Demais operadores continuam usando a validação comum.
             else:
                 tipo_resultado = validarOperacaoAritmetica(
                     simbolo_operador,
@@ -610,6 +643,15 @@ def inferirTipoComando(
                     f"Erro semântico na linha {linha}: "
                     f"o operador relacional {operador[1]} só pode ser usado "
                     f"como condição direta de se ou enquanto."
+                )
+                return TIPO_ERRO
+
+            if resultadoPodeSerNull(primeiro) or resultadoPodeSerNull(segundo):
+                adicionarErro(
+                    erros,
+                    f"Erro semântico na linha {linha}: "
+                    f"o operador relacional {operador[1]} não pode utilizar "
+                    f"um resultado que pode ser NULL."
                 )
                 return TIPO_ERRO
 

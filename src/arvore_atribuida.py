@@ -267,9 +267,21 @@ def converterComando(
                 "categoria": "decisao",
                 "condicao": esquerda,
                 "acao": direita,
+
+                # A condição já foi validada anteriormente como relacional.
                 "tipo_condicao": TIPO_LOGICO,
+
+                # Se a ação produzir real, o se produz real quando executado.
+                # Se a ação for outro se/enquanto, pega o tipo produzido por ele.
                 "tipo_resultado": obterTipoResultado(direita),
+
+                # Todo se pode retornar NULL, pois sua condição pode ser falsa.
                 "pode_ser_null": True,
+
+                # Informa se, mesmo quando a condição externa for verdadeira,
+                # a própria ação ainda pode resultar em NULL.
+                "acao_pode_ser_null": direita.get("pode_ser_null", False),
+
                 "valor_sem_execucao": "NULL",
                 "linha": linha
             }
@@ -279,9 +291,21 @@ def converterComando(
                 "categoria": "repeticao",
                 "condicao": esquerda,
                 "acao": direita,
+
+                # A condição do enquanto deve ser lógica.
                 "tipo_condicao": TIPO_LOGICO,
+
+                # O resultado do laço, quando existir, é do mesmo tipo da ação.
                 "tipo_resultado": obterTipoResultado(direita),
+
+                # Todo enquanto pode resultar em NULL,
+                # pois talvez não execute nenhuma vez.
                 "pode_ser_null": True,
+
+                # Se a ação for outro controle, ela também pode gerar NULL
+                # mesmo durante uma iteração executada.
+                "acao_pode_ser_null": direita.get("pode_ser_null", False),
+
                 "valor_sem_execucao": "NULL",
                 "resultado_quando_executa": "resultado_da_ultima_execucao",
                 "linha": linha

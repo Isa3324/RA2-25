@@ -468,7 +468,8 @@ def gerarDecisao(no, estado, indice_atual):
         (condicao acao se)
 
     Se verdadeiro:
-        retorna o resultado da ação.
+        retorna exatamente o resultado da ação,
+        inclusive sua flag NULL.
 
     Se falso:
         retorna NULL.
@@ -479,12 +480,18 @@ def gerarDecisao(no, estado, indice_atual):
 
     codigo = "    @ decisao se\n"
 
+    # Avalia a condição.
     codigo += gerarNo(no["condicao"], estado, indice_atual)
     codigo += testarCondicaoFalsa(falso)
 
+    # Condição verdadeira:
+    # executa a ação e NÃO altera r7 depois dela.
+    # Assim, se a ação retornar NULL, o se externo também retorna NULL.
     codigo += gerarNo(no["acao"], estado, indice_atual)
     codigo += f"    b {fim}\n"
 
+    # Condição falsa:
+    # não houve resultado da ação.
     codigo += f"{falso}:\n"
     codigo += carregarConstante("const_zero")
     codigo += "    mov r7, #1          @ resultado NULL\n"
@@ -493,14 +500,14 @@ def gerarDecisao(no, estado, indice_atual):
 
     return codigo
 
-
 def gerarRepeticao(no, estado, indice_atual):
     """
     Para:
         (condicao acao enquanto)
 
-    Se executar:
-        retorna o resultado da última ação.
+    Se executar ao menos uma vez:
+        retorna exatamente o resultado da última ação,
+        inclusive a flag NULL.
 
     Se nunca executar:
         retorna NULL.
@@ -513,22 +520,26 @@ def gerarRepeticao(no, estado, indice_atual):
 
     codigo = "    @ repeticao enquanto\n"
 
-    codigo += "    @ inicialmente o resultado do laco e NULL\n"
+    # Antes da primeira iteração, o laço ainda não produziu resultado.
     codigo += carregarConstante("const_zero")
     codigo += f"    ldr r9, ={label_valor}\n"
     codigo += "    vstr d0, [r9]\n"
 
-    codigo += "    mov r7, #1\n"
+    codigo += "    mov r7, #1          @ inicialmente NULL\n"
     codigo += f"    ldr r9, ={label_null}\n"
     codigo += "    str r7, [r9]\n"
 
     codigo += f"{inicio}:\n"
 
+    # Avalia a condição.
     codigo += gerarNo(no["condicao"], estado, indice_atual)
     codigo += testarCondicaoFalsa(fim)
 
+    # Executa a ação.
+    # Não deve alterar r7 após gerarNo(), pois a ação pode retornar NULL.
     codigo += gerarNo(no["acao"], estado, indice_atual)
 
+    # Guarda exatamente o resultado da última ação.
     codigo += f"    ldr r9, ={label_valor}\n"
     codigo += "    vstr d0, [r9]\n"
 
@@ -539,6 +550,7 @@ def gerarRepeticao(no, estado, indice_atual):
 
     codigo += f"{fim}:\n"
 
+    # Recupera o resultado final do laço.
     codigo += f"    ldr r9, ={label_valor}\n"
     codigo += "    vldr d0, [r9]\n"
 
