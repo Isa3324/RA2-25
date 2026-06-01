@@ -196,6 +196,12 @@ def removerComentarios(codigo):
                 dentro_comentario = False
                 posicao += 2
             else:
+                # O conteúdo do comentário é descartado,
+                # mas a quebra de linha precisa permanecer.
+                # Assim os tokens seguintes continuam com
+                # o mesmo número de linha do arquivo original.
+                if atual == "\n":
+                    resultado.append("\n")
                 posicao += 1
 
     if dentro_comentario:

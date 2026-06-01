@@ -26,7 +26,14 @@ def main():
     nome_arquivo = sys.argv[1]
 
 
-    entrada = prepararEntradaSemantica(nome_arquivo)
+    try:
+        entrada = prepararEntradaSemantica(nome_arquivo)
+
+    except SyntaxError as erro:
+        print("Erro léxico:")
+        print(f"- {erro}")
+        return
+    
     if entrada is None:
         print("A preparação da entrada semântica falhou.")
         return
