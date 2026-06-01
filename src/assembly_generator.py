@@ -143,7 +143,7 @@ def gerarRodape(estado):
     codigo += "    b erro_div_zero\n\n"
 
     codigo += "erro_expoente:\n"
-    codigo += "    @ expoente deve ser inteiro positivo\n"
+    codigo += "    @ expoente deve ser inteiro nao negativo\n"
     codigo += "    b erro_expoente\n\n"
 
     codigo += ".data\n"
@@ -342,13 +342,13 @@ def gerarPotencia(estado):
     inicio = novoLabel("pot_loop", estado)
     fim = novoLabel("pot_fim", estado)
 
-    codigo = "    @ potenciacao: expoente inteiro positivo\n"
+    codigo = "    @ potenciacao: expoente inteiro nao negativo\n"
 
     codigo += "    vcvt.s32.f64 s4, d1\n"
     codigo += "    vmov r1, s4\n"
 
     codigo += "    cmp r1, #0\n"
-    codigo += "    ble erro_expoente\n"
+    codigo += "    blt erro_expoente\n"
 
     codigo += "    vmov.f64 d3, d0\n"
     codigo += carregarConstante("const_um")

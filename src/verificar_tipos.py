@@ -1,5 +1,6 @@
 import json
 import os
+from decimal import Decimal, InvalidOperation
 
 from tabela_simbolos import (
     coletarComandosPrincipais,
@@ -17,13 +18,11 @@ TIPO_LOGICO = "logico"
 TIPO_COMANDO = "comando"
 TIPO_ERRO = "erro"
 
-# Na Fase 3:
-# | representa divisão real
-# / representa divisão inteira
-OPERADORES_NUMERICOS = {"+", "-", "*", "^"}
+OPERADORES_NUMERICOS = {"+", "-", "*"}
 OPERADORES_INTEIROS = {"/", "//", "%"}
 OPERADOR_DIVISAO_REAL = "|"
-
+OPERADOR_POTENCIA = "^"
+OPERADORES_RELACIONAIS = {"==", "!=", ">", "<", ">=", "<="}
 
 def salvarRelatorioTiposJson(resultado, caminho="output/tipos_inferidos.json"):
     os.makedirs(os.path.dirname(caminho), exist_ok=True)
@@ -48,6 +47,26 @@ def tipoLiteralNumerico(valor):
 
     return TIPO_INTEIRO
 
+
+def literalEhInteiroNaoNegativo(valor):
+    """
+    Verifica se um literal numérico representa um inteiro não negativo.
+
+    Exemplos:
+    - "3"    -> True
+    - "3.00" -> True
+    - "0"    -> True
+    - "0.00" -> True
+    - "3.50" -> False
+    - "-1"   -> False
+    """
+
+    try:
+        numero = Decimal(str(valor))
+    except InvalidOperation:
+        return False
+
+    return numero >= 0 and numero == numero.to_integral_value()
 
 def ehNumerico(tipo):
     return tipo in {TIPO_INTEIRO, TIPO_REAL}
@@ -175,6 +194,58 @@ def validarOperacaoAritmetica(operador, tipo_esq, tipo_dir, linha, erros):
 
     return TIPO_ERRO
 
+
+def validarPotenciacao(
+    elemento_expoente,
+    tipo_base,
+    tipo_expoente,
+    linha,
+    erros
+):
+    """
+    Valida a operação de potenciação.
+
+    Regras:
+    - a base deve ser numérica;
+    - o expoente deve ser um literal NUM;
+    - o valor do expoente deve ser inteiro e não negativo;
+    - 0, 0.00, 3 e 3.00 são aceitos;
+    - 3.50 é rejeitado.
+    """
+
+    if tipo_base == TIPO_ERRO or tipo_expoente == TIPO_ERRO:
+        return TIPO_ERRO
+
+    if not ehNumerico(tipo_base):
+        adicionarErro(
+            erros,
+            f"Erro semântico na linha {linha}: "
+            f"a base do operador ^ deve ser numérica, "
+            f"mas recebeu {tipo_base}."
+        )
+        return TIPO_ERRO
+
+    if not elementoEhToken(elemento_expoente, "NUM"):
+        adicionarErro(
+            erros,
+            f"Erro semântico na linha {linha}: "
+            f"o expoente de ^ deve ser um literal inteiro não negativo, "
+            f"como 0, 3 ou 3.00."
+        )
+        return TIPO_ERRO
+
+    valor_expoente = elemento_expoente[1]
+
+    if not literalEhInteiroNaoNegativo(valor_expoente):
+        adicionarErro(
+            erros,
+            f"Erro semântico na linha {linha}: "
+            f"o expoente de ^ deve ser um literal inteiro não negativo, "
+            f"mas recebeu {valor_expoente}."
+        )
+        return TIPO_ERRO
+
+    return tipoOperacaoNumerica(tipo_base, tipo_expoente)
 
 def validarOperacaoRelacional(operador, tipo_esq, tipo_dir, linha, erros):
     if tipo_esq == TIPO_ERRO or tipo_dir == TIPO_ERRO:
@@ -462,21 +533,36 @@ def inferirTipoComando(
         )
 
         # -----------------------------------------
-        # Operação aritmética comum
+        # Operações aritméticas
         # -----------------------------------------
         if elementoEhToken(operador, "OP"):
-            tipo_resultado = validarOperacaoAritmetica(
-                operador[1],
-                tipo_esq,
-                tipo_dir,
-                linha,
-                erros
-            )
+            simbolo_operador = operador[1]
+
+            # Potenciação possui uma regra própria:
+            # o expoente deve ser literal inteiro não negativo.
+            if simbolo_operador == OPERADOR_POTENCIA:
+                tipo_resultado = validarPotenciacao(
+                    segundo,
+                    tipo_esq,
+                    tipo_dir,
+                    linha,
+                    erros
+                )
+
+            # Demais operadores continuam usando a validação comum.
+            else:
+                tipo_resultado = validarOperacaoAritmetica(
+                    simbolo_operador,
+                    tipo_esq,
+                    tipo_dir,
+                    linha,
+                    erros
+                )
 
             anotacoes.append({
                 "linha": linha,
                 "categoria": "operacao_aritmetica",
-                "operador": operador[1],
+                "operador": simbolo_operador,
                 "tipo": tipo_resultado
             })
 

@@ -4,106 +4,12 @@ programa
     comando
       EPAR -> ('EPAR', '(', 0, 2)
       conteudo
-        NUM -> ('NUM', '1', 1, 2)
+        NUM -> ('NUM', '2.00', 1, 2)
         cont_num
-          MEM -> ('MEM', 'A', 3, 2)
-          fim_mem
-            ε
-      DPAR -> ('DPAR', ')', 4, 2)
+          NUM -> ('NUM', '3.00', 6, 2)
+          operador_final
+            OP -> ('OP', '^', 11, 2)
+      DPAR -> ('DPAR', ')', 12, 2)
     lista_comandos
-      comando
-        EPAR -> ('EPAR', '(', 0, 3)
-        conteudo
-          NUM -> ('NUM', '2', 1, 3)
-          cont_num
-            MEM -> ('MEM', 'B', 3, 3)
-            fim_mem
-              ε
-        DPAR -> ('DPAR', ')', 4, 3)
-      lista_comandos
-        comando
-          EPAR -> ('EPAR', '(', 0, 4)
-          conteudo
-            NUM -> ('NUM', '0', 1, 4)
-            cont_num
-              MEM -> ('MEM', 'C', 3, 4)
-              fim_mem
-                ε
-          DPAR -> ('DPAR', ')', 4, 4)
-        lista_comandos
-          comando
-            EPAR -> ('EPAR', '(', 0, 5)
-            conteudo
-              NUM -> ('NUM', '0', 1, 5)
-              cont_num
-                MEM -> ('MEM', 'D', 3, 5)
-                fim_mem
-                  ε
-            DPAR -> ('DPAR', ')', 4, 5)
-          lista_comandos
-            comando
-              EPAR -> ('EPAR', '(', 0, 6)
-              conteudo
-                NUM -> ('NUM', '0', 1, 6)
-                cont_num
-                  MEM -> ('MEM', 'S', 3, 6)
-                  fim_mem
-                    ε
-              DPAR -> ('DPAR', ')', 4, 6)
-            lista_comandos
-              comando
-                EPAR -> ('EPAR', '(', 0, 7)
-                conteudo
-                  comando
-                    EPAR -> ('EPAR', '(', 1, 7)
-                    conteudo
-                      MEM -> ('MEM', 'D', 2, 7)
-                      cont_mem
-                        MEM -> ('MEM', 'S', 4, 7)
-                        fim_mem
-                          operador_final
-                            OPREL -> ('OPREL', '<=', 6, 7)
-                    DPAR -> ('DPAR', ')', 8, 7)
-                  cont_comando
-                    comando
-                      EPAR -> ('EPAR', '(', 10, 7)
-                      conteudo
-                        comando
-                          EPAR -> ('EPAR', '(', 11, 7)
-                          conteudo
-                            MEM -> ('MEM', 'A', 12, 7)
-                            cont_mem
-                              MEM -> ('MEM', 'B', 14, 7)
-                              fim_mem
-                                operador_final
-                                  OPREL -> ('OPREL', '>=', 16, 7)
-                          DPAR -> ('DPAR', ')', 18, 7)
-                        cont_comando
-                          comando
-                            EPAR -> ('EPAR', '(', 20, 7)
-                            conteudo
-                              comando
-                                EPAR -> ('EPAR', '(', 21, 7)
-                                conteudo
-                                  MEM -> ('MEM', 'A', 22, 7)
-                                  cont_mem
-                                    MEM -> ('MEM', 'C', 24, 7)
-                                    fim_mem
-                                      operador_final
-                                        OPREL -> ('OPREL', '<=', 26, 7)
-                                DPAR -> ('DPAR', ')', 28, 7)
-                              cont_comando
-                                MEM -> ('MEM', 'D', 30, 7)
-                                fim_mem
-                                  operador_final
-                                    SE -> ('SE', 'se', 32, 7)
-                            DPAR -> ('DPAR', ')', 34, 7)
-                          operador_final
-                            SE -> ('SE', 'se', 36, 7)
-                      DPAR -> ('DPAR', ')', 38, 7)
-                    operador_final
-                      ENQUANTO -> ('ENQUANTO', 'enquanto', 40, 7)
-                DPAR -> ('DPAR', ')', 48, 7)
-              lista_comandos
-                ε
-  END -> ('END', '(END)', 0, 8)
+      ε
+  END -> ('END', '(END)', 0, 3)
