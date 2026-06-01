@@ -174,67 +174,217 @@ def registrarUso(tabela, erros, token_variavel, linha):
 
     return True
 
-def analisarUsosEmElemento(elemento, tabela, erros, linha):
+def analisarUsosEmElemento(
+    elemento,
+    tabela,
+    erros,
+    linha,
+    contexto_controle=None
+):
     """
-    Analisa um elemento que está sendo usado como valor ou operando.
-    Não registra definição.
+    Analisa um elemento usado dentro de um comando.
+
+    contexto_controle pode ser:
+    - None: fora de se/enquanto;
+    - "se": dentro de uma decisão;
+    - "enquanto": dentro de um laço.
     """
 
+    # Um número literal não altera a tabela de símbolos.
     if elementoEhToken(elemento, "NUM"):
         return
 
+    # Uma variável isolada neste ponto está sendo usada.
     if elementoEhToken(elemento, "MEM"):
         registrarUso(tabela, erros, elemento, linha)
         return
 
+    # Se o elemento é outro comando, analisa recursivamente,
+    # mantendo a informação de estar ou não dentro de controle.
     if elementoEhComandoAninhado(elemento):
         elementos_internos = separarElementos(elemento)
-        analisarComandoInterno(elementos_internos, tabela, erros, linha)
+
+        analisarComandoInterno(
+            elementos_internos,
+            tabela,
+            erros,
+            linha,
+            contexto_controle
+        )
 
 
-def analisarComandoInterno(elementos, tabela, erros, linha):
+def analisarComandoInterno(
+    elementos,
+    tabela,
+    erros,
+    linha,
+    contexto_controle=None
+):
     """
-    Analisa comandos usados dentro de outros comandos.
-    Nesta etapa, serve para detectar uso de variável não definida.
+    Analisa comandos aninhados para a tabela de símbolos.
+
+    Esta função verifica:
+    - uso de variáveis;
+    - definições e reatribuições;
+    - proibição de criar variável nova dentro de se/enquanto;
+    - atribuição inválida de expressão para variável.
+
+    Ela não verifica tipos de operadores.
     """
 
+    # Caso: (A)
+    # Uso isolado de variável.
     if len(elementos) == 1:
         if elementoEhToken(elementos[0], "MEM"):
             registrarUso(tabela, erros, elementos[0], linha)
+
         return
 
+    # Casos com dois elementos:
+    # (1 A)
+    # (A B)
+    # (N RES)
+    # ((expressao) A)
     if len(elementos) == 2:
         primeiro = elementos[0]
         segundo = elementos[1]
 
-        # Comando RES será validado de forma específica depois.
+        # Caso: (N RES)
+        # RES não define nem usa variável MEM.
         if elementoEhToken(segundo, "RES"):
             return
 
-        # Atribuição dentro de expressão aninhada:
-        # analisa a origem e registra destino apenas se origem for NUM ou MEM.
-        if elementoEhToken(segundo, "MEM"):
-            if elementoEhToken(primeiro, "NUM"):
-                registrarDefinicao(tabela, segundo[1], linha)
-                return
-
-            if elementoEhToken(primeiro, "MEM"):
-                if registrarUso(tabela, erros, primeiro, linha):
-                    registrarDefinicao(tabela, segundo[1], linha)
-                return
-
-            erros.append(
-                f"Erro semântico na linha {linha}: "
-                f"não é permitido atribuir o resultado de uma expressão "
-                f"à variável {segundo[1]}."
+        # Caso: (1 A) ou (1.0 A)
+        # Define A fora de controle ou reatribui A dentro de controle.
+        if elementoEhToken(primeiro, "NUM") and elementoEhToken(segundo, "MEM"):
+            registrarDefinicao(
+                tabela,
+                segundo[1],
+                linha,
+                erros=erros,
+                contexto_controle=contexto_controle
             )
             return
 
+        # Caso: (A B)
+        # A é usada como origem.
+        # B é definida ou reatribuída.
+        if elementoEhToken(primeiro, "MEM") and elementoEhToken(segundo, "MEM"):
+            origem_valida = registrarUso(tabela, erros, primeiro, linha)
+
+            if origem_valida:
+                registrarDefinicao(
+                    tabela,
+                    segundo[1],
+                    linha,
+                    erros=erros,
+                    contexto_controle=contexto_controle
+                )
+
+            return
+
+        # Caso: ((3 4 +) A) ou ((3 4 <=) A)
+        # Continua proibido pela regra atual da linguagem.
+        if elementoEhComandoAninhado(primeiro) and elementoEhToken(segundo, "MEM"):
+            erros.append(
+                f"Erro semântico na linha {linha}: "
+                f"não é permitido atribuir o resultado de uma expressão "
+                f"à variável {segundo[1]}. "
+                f"Uma atribuição deve usar NUM ou uma variável já definida."
+            )
+
+            # Mesmo inválida, verifica possíveis usos dentro da expressão.
+            analisarUsosEmElemento(
+                primeiro,
+                tabela,
+                erros,
+                linha,
+                contexto_controle
+            )
+            return
+
+    # Casos com três elementos:
+    # (A B +)
+    # (A B >=)
+    # ((A B >=) D se)
+    # ((D S <=) D enquanto)
     if len(elementos) == 3:
-        analisarUsosEmElemento(elementos[0], tabela, erros, linha)
-        analisarUsosEmElemento(elementos[1], tabela, erros, linha)
+        primeiro = elementos[0]
+        segundo = elementos[1]
+        operador = elementos[2]
+
+        # Caso: (condicao acao se)
+        if elementoEhToken(operador, "SE"):
+            analisarUsosEmElemento(
+                primeiro,
+                tabela,
+                erros,
+                linha,
+                contexto_controle="se"
+            )
+
+            analisarUsosEmElemento(
+                segundo,
+                tabela,
+                erros,
+                linha,
+                contexto_controle="se"
+            )
+
+            return
+
+        # Caso: (condicao acao enquanto)
+        if elementoEhToken(operador, "ENQUANTO"):
+            analisarUsosEmElemento(
+                primeiro,
+                tabela,
+                erros,
+                linha,
+                contexto_controle="enquanto"
+            )
+
+            analisarUsosEmElemento(
+                segundo,
+                tabela,
+                erros,
+                linha,
+                contexto_controle="enquanto"
+            )
+
+            return
+
+        # Operações aritméticas ou relacionais.
+        # Apenas registra os usos das variáveis nos operandos.
+        analisarUsosEmElemento(
+            primeiro,
+            tabela,
+            erros,
+            linha,
+            contexto_controle
+        )
+
+        analisarUsosEmElemento(
+            segundo,
+            tabela,
+            erros,
+            linha,
+            contexto_controle
+        )
+
+        return
         
 def construirTabelaSimbolos(arvore):
+    """
+    Constrói a tabela de símbolos percorrendo todos os comandos principais.
+
+    Regras tratadas aqui:
+    - toda variável MEM armazenada possui tipo real;
+    - variável deve ser definida antes do uso;
+    - variável nova não pode ser criada dentro de se/enquanto;
+    - variável previamente definida pode ser reatribuída dentro de se/enquanto;
+    - atribuição direta de resultado de expressão para MEM continua proibida.
+    """
+
     tabela = {}
     erros = []
 
@@ -249,58 +399,13 @@ def construirTabelaSimbolos(arvore):
         linha = linhaDoToken(tokens[0], numero_comando)
         elementos = separarElementos(tokens)
 
-        # Caso: (A)
-        # Uso isolado de variável.
-        if len(elementos) == 1:
-            if elementoEhToken(elementos[0], "MEM"):
-                registrarUso(tabela, erros, elementos[0], linha)
-
-            continue
-
-        # Caso com dois elementos:
-        # (1 A), (A B), ((3 4 +) A), (N RES)
-        if len(elementos) == 2:
-            primeiro = elementos[0]
-            segundo = elementos[1]
-
-            # (1 A) define A como real
-            if elementoEhToken(primeiro, "NUM") and elementoEhToken(segundo, "MEM"):
-                registrarDefinicao(tabela, segundo[1], linha)
-                continue
-
-            # (A B) define B somente se A já foi definida
-            if elementoEhToken(primeiro, "MEM") and elementoEhToken(segundo, "MEM"):
-                origem_valida = registrarUso(tabela, erros, primeiro, linha)
-
-                if origem_valida:
-                    registrarDefinicao(tabela, segundo[1], linha)
-
-                continue
-
-            # ((3 4 +) A) ou ((3 4 <=) A)
-            # Não é permitido na sua regra de atribuição.
-            if elementoEhComandoAninhado(primeiro) and elementoEhToken(segundo, "MEM"):
-                erros.append(
-                    f"Erro semântico na linha {linha}: "
-                    f"não é permitido atribuir o resultado de uma expressão "
-                    f"à variável {segundo[1]}. "
-                    f"Uma atribuição deve usar NUM ou uma variável já definida."
-                )
-
-                # Mesmo sendo atribuição inválida, analisa possíveis usos internos.
-                analisarUsosEmElemento(primeiro, tabela, erros, linha)
-                continue
-
-            # (N RES) será aprofundado depois.
-            if elementoEhToken(segundo, "RES"):
-                continue
-
-        # Caso de operação:
-        # (A B +), (A 2 +), ((A B +) C *), etc.
-        if len(elementos) == 3:
-            analisarUsosEmElemento(elementos[0], tabela, erros, linha)
-            analisarUsosEmElemento(elementos[1], tabela, erros, linha)
-            continue
+        analisarComandoInterno(
+            elementos,
+            tabela,
+            erros,
+            linha,
+            contexto_controle=None
+        )
 
     salvarTabelaSimbolosJson(tabela, erros)
 

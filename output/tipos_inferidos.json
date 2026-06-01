@@ -9,13 +9,38 @@
         {
             "linha": 3,
             "categoria": "atribuicao_literal",
-            "variavel": "A",
+            "variavel": "B",
             "tipo": "real"
         },
         {
             "linha": 4,
+            "categoria": "atribuicao_literal",
+            "variavel": "C",
+            "tipo": "real"
+        },
+        {
+            "linha": 5,
+            "categoria": "operacao_relacional",
+            "operador": "<",
+            "tipo": "logico"
+        },
+        {
+            "linha": 5,
+            "categoria": "atribuicao_literal",
+            "variavel": "C",
+            "tipo": "real"
+        },
+        {
+            "linha": 5,
+            "categoria": "decisao",
+            "tipo_condicao": "logico",
+            "tipo": "real",
+            "pode_ser_null": true
+        },
+        {
+            "linha": 6,
             "categoria": "uso_variavel",
-            "expressao": "A",
+            "expressao": "C",
             "tipo": "real"
         }
     ],
@@ -32,6 +57,16 @@
         },
         {
             "linha": 4,
+            "tipo": "real",
+            "pode_ser_null": false
+        },
+        {
+            "linha": 5,
+            "tipo": "real",
+            "pode_ser_null": true
+        },
+        {
+            "linha": 6,
             "tipo": "real",
             "pode_ser_null": false
         }

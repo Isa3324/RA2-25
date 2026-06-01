@@ -16,7 +16,7 @@ programa
         conteudo
           NUM -> ('NUM', '2', 1, 3)
           cont_num
-            MEM -> ('MEM', 'A', 3, 3)
+            MEM -> ('MEM', 'B', 3, 3)
             fim_mem
               ε
         DPAR -> ('DPAR', ')', 4, 3)
@@ -24,10 +24,47 @@ programa
         comando
           EPAR -> ('EPAR', '(', 0, 4)
           conteudo
-            MEM -> ('MEM', 'A', 1, 4)
-            cont_mem
-              ε
-          DPAR -> ('DPAR', ')', 2, 4)
+            NUM -> ('NUM', '0', 1, 4)
+            cont_num
+              MEM -> ('MEM', 'C', 3, 4)
+              fim_mem
+                ε
+          DPAR -> ('DPAR', ')', 4, 4)
         lista_comandos
-          ε
-  END -> ('END', '(END)', 0, 5)
+          comando
+            EPAR -> ('EPAR', '(', 0, 5)
+            conteudo
+              comando
+                EPAR -> ('EPAR', '(', 1, 5)
+                conteudo
+                  MEM -> ('MEM', 'A', 2, 5)
+                  cont_mem
+                    MEM -> ('MEM', 'B', 4, 5)
+                    fim_mem
+                      operador_final
+                        OPREL -> ('OPREL', '<', 6, 5)
+                DPAR -> ('DPAR', ')', 7, 5)
+              cont_comando
+                comando
+                  EPAR -> ('EPAR', '(', 9, 5)
+                  conteudo
+                    NUM -> ('NUM', '3', 10, 5)
+                    cont_num
+                      MEM -> ('MEM', 'C', 12, 5)
+                      fim_mem
+                        ε
+                  DPAR -> ('DPAR', ')', 13, 5)
+                operador_final
+                  SE -> ('SE', 'se', 15, 5)
+            DPAR -> ('DPAR', ')', 17, 5)
+          lista_comandos
+            comando
+              EPAR -> ('EPAR', '(', 0, 6)
+              conteudo
+                MEM -> ('MEM', 'C', 1, 6)
+                cont_mem
+                  ε
+              DPAR -> ('DPAR', ')', 2, 6)
+            lista_comandos
+              ε
+  END -> ('END', '(END)', 0, 7)
