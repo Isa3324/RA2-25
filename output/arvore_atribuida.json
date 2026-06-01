@@ -13,9 +13,10 @@
             ],
             "linha_ultima_atribuicao": 2,
             "linhas_uso": [
-                5
+                7,
+                7
             ],
-            "linha_ultimo_uso": 5
+            "linha_ultimo_uso": 7
         },
         "B": {
             "identificador": "B",
@@ -26,23 +27,49 @@
             ],
             "linha_ultima_atribuicao": 3,
             "linhas_uso": [
-                5
+                7
             ],
-            "linha_ultimo_uso": 5
+            "linha_ultimo_uso": 7
         },
         "C": {
             "identificador": "C",
             "tipo": "real",
             "linha_definicao": 4,
             "linhas_atribuicao": [
-                4,
+                4
+            ],
+            "linha_ultima_atribuicao": 4,
+            "linhas_uso": [
+                7
+            ],
+            "linha_ultimo_uso": 7
+        },
+        "D": {
+            "identificador": "D",
+            "tipo": "real",
+            "linha_definicao": 5,
+            "linhas_atribuicao": [
                 5
             ],
             "linha_ultima_atribuicao": 5,
             "linhas_uso": [
+                7,
+                7
+            ],
+            "linha_ultimo_uso": 7
+        },
+        "S": {
+            "identificador": "S",
+            "tipo": "real",
+            "linha_definicao": 6,
+            "linhas_atribuicao": [
                 6
             ],
-            "linha_ultimo_uso": 6
+            "linha_ultima_atribuicao": 6,
+            "linhas_uso": [
+                7
+            ],
+            "linha_ultimo_uso": 7
         }
     },
     "tipos_validados": {
@@ -67,28 +94,54 @@
             },
             {
                 "linha": 5,
-                "categoria": "operacao_relacional",
-                "operador": "<",
-                "tipo": "logico"
-            },
-            {
-                "linha": 5,
                 "categoria": "atribuicao_literal",
-                "variavel": "C",
+                "variavel": "D",
                 "tipo": "real"
             },
             {
-                "linha": 5,
+                "linha": 6,
+                "categoria": "atribuicao_literal",
+                "variavel": "S",
+                "tipo": "real"
+            },
+            {
+                "linha": 7,
+                "categoria": "operacao_relacional",
+                "operador": "<=",
+                "tipo": "logico"
+            },
+            {
+                "linha": 7,
+                "categoria": "operacao_relacional",
+                "operador": ">=",
+                "tipo": "logico"
+            },
+            {
+                "linha": 7,
+                "categoria": "operacao_relacional",
+                "operador": "<=",
+                "tipo": "logico"
+            },
+            {
+                "linha": 7,
                 "categoria": "decisao",
                 "tipo_condicao": "logico",
                 "tipo": "real",
                 "pode_ser_null": true
             },
             {
-                "linha": 6,
-                "categoria": "uso_variavel",
-                "expressao": "C",
-                "tipo": "real"
+                "linha": 7,
+                "categoria": "decisao",
+                "tipo_condicao": "logico",
+                "tipo": "real",
+                "pode_ser_null": true
+            },
+            {
+                "linha": 7,
+                "categoria": "repeticao",
+                "tipo_condicao": "logico",
+                "tipo": "real",
+                "pode_ser_null": true
             }
         ],
         "resultados_anteriores": [
@@ -110,12 +163,17 @@
             {
                 "linha": 5,
                 "tipo": "real",
-                "pode_ser_null": true
+                "pode_ser_null": false
             },
             {
                 "linha": 6,
                 "tipo": "real",
                 "pode_ser_null": false
+            },
+            {
+                "linha": 7,
+                "tipo": "real",
+                "pode_ser_null": true
             }
         ],
         "erros_semanticos": []
@@ -161,58 +219,123 @@
             "indice_resultado": 3
         },
         {
-            "categoria": "decisao",
-            "condicao": {
-                "categoria": "operacao_relacional",
-                "operador": "<",
-                "esquerda": {
-                    "categoria": "variavel",
-                    "nome": "A",
-                    "tipo": "real",
-                    "linha_definicao": 2,
-                    "linha": 5
-                },
-                "direita": {
-                    "categoria": "variavel",
-                    "nome": "B",
-                    "tipo": "real",
-                    "linha_definicao": 3,
-                    "linha": 5
-                },
-                "tipo_resultado": "logico",
+            "categoria": "atribuicao_literal",
+            "destino": "D",
+            "valor": {
+                "categoria": "literal",
+                "valor": "0",
+                "tipo": "inteiro",
                 "linha": 5
             },
-            "acao": {
-                "categoria": "atribuicao_literal",
-                "destino": "C",
-                "valor": {
-                    "categoria": "literal",
-                    "valor": "3",
-                    "tipo": "inteiro",
-                    "linha": 5
-                },
-                "tipo_resultado": "real",
-                "linha": 5
-            },
-            "tipo_condicao": "logico",
             "tipo_resultado": "real",
-            "pode_ser_null": true,
-            "valor_sem_execucao": "NULL",
             "linha": 5,
             "indice_resultado": 4
         },
         {
-            "categoria": "leitura_memoria",
-            "variavel": {
-                "categoria": "variavel",
-                "nome": "C",
-                "tipo": "real",
-                "linha_definicao": 4,
+            "categoria": "atribuicao_literal",
+            "destino": "S",
+            "valor": {
+                "categoria": "literal",
+                "valor": "0",
+                "tipo": "inteiro",
                 "linha": 6
             },
             "tipo_resultado": "real",
             "linha": 6,
             "indice_resultado": 5
+        },
+        {
+            "categoria": "repeticao",
+            "condicao": {
+                "categoria": "operacao_relacional",
+                "operador": "<=",
+                "esquerda": {
+                    "categoria": "variavel",
+                    "nome": "D",
+                    "tipo": "real",
+                    "linha_definicao": 5,
+                    "linha": 7
+                },
+                "direita": {
+                    "categoria": "variavel",
+                    "nome": "S",
+                    "tipo": "real",
+                    "linha_definicao": 6,
+                    "linha": 7
+                },
+                "tipo_resultado": "logico",
+                "linha": 7
+            },
+            "acao": {
+                "categoria": "decisao",
+                "condicao": {
+                    "categoria": "operacao_relacional",
+                    "operador": ">=",
+                    "esquerda": {
+                        "categoria": "variavel",
+                        "nome": "A",
+                        "tipo": "real",
+                        "linha_definicao": 2,
+                        "linha": 7
+                    },
+                    "direita": {
+                        "categoria": "variavel",
+                        "nome": "B",
+                        "tipo": "real",
+                        "linha_definicao": 3,
+                        "linha": 7
+                    },
+                    "tipo_resultado": "logico",
+                    "linha": 7
+                },
+                "acao": {
+                    "categoria": "decisao",
+                    "condicao": {
+                        "categoria": "operacao_relacional",
+                        "operador": "<=",
+                        "esquerda": {
+                            "categoria": "variavel",
+                            "nome": "A",
+                            "tipo": "real",
+                            "linha_definicao": 2,
+                            "linha": 7
+                        },
+                        "direita": {
+                            "categoria": "variavel",
+                            "nome": "C",
+                            "tipo": "real",
+                            "linha_definicao": 4,
+                            "linha": 7
+                        },
+                        "tipo_resultado": "logico",
+                        "linha": 7
+                    },
+                    "acao": {
+                        "categoria": "variavel",
+                        "nome": "D",
+                        "tipo": "real",
+                        "linha_definicao": 5,
+                        "linha": 7
+                    },
+                    "tipo_condicao": "logico",
+                    "tipo_resultado": "real",
+                    "pode_ser_null": true,
+                    "valor_sem_execucao": "NULL",
+                    "linha": 7
+                },
+                "tipo_condicao": "logico",
+                "tipo_resultado": "real",
+                "pode_ser_null": true,
+                "valor_sem_execucao": "NULL",
+                "linha": 7
+            },
+            "tipo_condicao": "logico",
+            "tipo_resultado": "real",
+            "pode_ser_null": true,
+            "valor_sem_execucao": "NULL",
+            "resultado_quando_executa": "resultado_da_ultima_execucao",
+            "linha": 7,
+            "indice_resultado": 6
         }
     ]
 }

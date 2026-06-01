@@ -9,9 +9,10 @@
             ],
             "linha_ultima_atribuicao": 2,
             "linhas_uso": [
-                5
+                7,
+                7
             ],
-            "linha_ultimo_uso": 5
+            "linha_ultimo_uso": 7
         },
         "B": {
             "identificador": "B",
@@ -22,23 +23,49 @@
             ],
             "linha_ultima_atribuicao": 3,
             "linhas_uso": [
-                5
+                7
             ],
-            "linha_ultimo_uso": 5
+            "linha_ultimo_uso": 7
         },
         "C": {
             "identificador": "C",
             "tipo": "real",
             "linha_definicao": 4,
             "linhas_atribuicao": [
-                4,
+                4
+            ],
+            "linha_ultima_atribuicao": 4,
+            "linhas_uso": [
+                7
+            ],
+            "linha_ultimo_uso": 7
+        },
+        "D": {
+            "identificador": "D",
+            "tipo": "real",
+            "linha_definicao": 5,
+            "linhas_atribuicao": [
                 5
             ],
             "linha_ultima_atribuicao": 5,
             "linhas_uso": [
+                7,
+                7
+            ],
+            "linha_ultimo_uso": 7
+        },
+        "S": {
+            "identificador": "S",
+            "tipo": "real",
+            "linha_definicao": 6,
+            "linhas_atribuicao": [
                 6
             ],
-            "linha_ultimo_uso": 6
+            "linha_ultima_atribuicao": 6,
+            "linhas_uso": [
+                7
+            ],
+            "linha_ultimo_uso": 7
         }
     },
     "erros_semanticos": []

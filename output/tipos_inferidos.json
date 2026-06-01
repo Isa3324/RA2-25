@@ -20,28 +20,54 @@
         },
         {
             "linha": 5,
-            "categoria": "operacao_relacional",
-            "operador": "<",
-            "tipo": "logico"
-        },
-        {
-            "linha": 5,
             "categoria": "atribuicao_literal",
-            "variavel": "C",
+            "variavel": "D",
             "tipo": "real"
         },
         {
-            "linha": 5,
+            "linha": 6,
+            "categoria": "atribuicao_literal",
+            "variavel": "S",
+            "tipo": "real"
+        },
+        {
+            "linha": 7,
+            "categoria": "operacao_relacional",
+            "operador": "<=",
+            "tipo": "logico"
+        },
+        {
+            "linha": 7,
+            "categoria": "operacao_relacional",
+            "operador": ">=",
+            "tipo": "logico"
+        },
+        {
+            "linha": 7,
+            "categoria": "operacao_relacional",
+            "operador": "<=",
+            "tipo": "logico"
+        },
+        {
+            "linha": 7,
             "categoria": "decisao",
             "tipo_condicao": "logico",
             "tipo": "real",
             "pode_ser_null": true
         },
         {
-            "linha": 6,
-            "categoria": "uso_variavel",
-            "expressao": "C",
-            "tipo": "real"
+            "linha": 7,
+            "categoria": "decisao",
+            "tipo_condicao": "logico",
+            "tipo": "real",
+            "pode_ser_null": true
+        },
+        {
+            "linha": 7,
+            "categoria": "repeticao",
+            "tipo_condicao": "logico",
+            "tipo": "real",
+            "pode_ser_null": true
         }
     ],
     "resultados_anteriores": [
@@ -63,12 +89,17 @@
         {
             "linha": 5,
             "tipo": "real",
-            "pode_ser_null": true
+            "pode_ser_null": false
         },
         {
             "linha": 6,
             "tipo": "real",
             "pode_ser_null": false
+        },
+        {
+            "linha": 7,
+            "tipo": "real",
+            "pode_ser_null": true
         }
     ],
     "erros_semanticos": []

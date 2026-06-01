@@ -83,8 +83,18 @@ def inferirTipoElemento(
     resultados_anteriores,
     anotacoes,
     erros,
-    linha
+    linha,
+    oprel_permitido=False
 ):
+    """
+    Infere o tipo de um elemento.
+
+    oprel_permitido:
+    - False: comparações não podem aparecer neste ponto;
+    - True: uma comparação pode aparecer porque este elemento
+      está sendo analisado como condição direta de se/enquanto.
+    """
+
     if elementoEhToken(elemento, "NUM"):
         return tipoLiteralNumerico(elemento[1])
 
@@ -108,7 +118,8 @@ def inferirTipoElemento(
             resultados_anteriores,
             anotacoes,
             erros,
-            linha
+            linha,
+            oprel_permitido=oprel_permitido
         )
 
     adicionarErro(
@@ -245,7 +256,8 @@ def inferirTipoComando(
     resultados_anteriores,
     anotacoes,
     erros,
-    linha_padrao
+    linha_padrao,
+    oprel_permitido=False
 ):
     linha = linhaDoToken(tokens_comando[0], linha_padrao)
     elementos = separarElementos(tokens_comando)
@@ -327,19 +339,116 @@ def inferirTipoComando(
         if elementoEhComandoAninhado(primeiro) and elementoEhToken(segundo, "MEM"):
             return TIPO_ERRO
 
-    # Caso: (A B +), (A B <), ((A B <) A se), etc.
+    # Casos:(A B +), (A B <), ((A B <) A se), ((A B <) A enquanto)
     if len(elementos) == 3:
         primeiro = elementos[0]
         segundo = elementos[1]
         operador = elementos[2]
 
+        # -----------------------------------------
+        # Comando SE
+        # -----------------------------------------
+        if elementoEhToken(operador, "SE"):
+            tipo_condicao = inferirTipoElemento(
+                primeiro,
+                tabela_simbolos,
+                resultados_anteriores,
+                anotacoes,
+                erros,
+                linha,
+                oprel_permitido=True
+            )
+
+            tipo_acao = inferirTipoElemento(
+                segundo,
+                tabela_simbolos,
+                resultados_anteriores,
+                anotacoes,
+                erros,
+                linha,
+                oprel_permitido=False
+            )
+
+            if tipo_condicao == TIPO_ERRO or tipo_acao == TIPO_ERRO:
+                return TIPO_ERRO
+
+            if tipo_condicao != TIPO_LOGICO:
+                adicionarErro(
+                    erros,
+                    f"Erro semântico na linha {linha}: "
+                    f"o comando se exige uma comparação relacional direta "
+                    f"como condição."
+                )
+                return TIPO_ERRO
+
+            anotacoes.append({
+                "linha": linha,
+                "categoria": "decisao",
+                "tipo_condicao": TIPO_LOGICO,
+                "tipo": tipo_acao,
+                "pode_ser_null": True
+            })
+
+            return tipo_acao
+
+        # -----------------------------------------
+        # Comando ENQUANTO
+        # -----------------------------------------
+        if elementoEhToken(operador, "ENQUANTO"):
+            tipo_condicao = inferirTipoElemento(
+                primeiro,
+                tabela_simbolos,
+                resultados_anteriores,
+                anotacoes,
+                erros,
+                linha,
+                oprel_permitido=True
+            )
+
+            tipo_acao = inferirTipoElemento(
+                segundo,
+                tabela_simbolos,
+                resultados_anteriores,
+                anotacoes,
+                erros,
+                linha,
+                oprel_permitido=False
+            )
+
+            if tipo_condicao == TIPO_ERRO or tipo_acao == TIPO_ERRO:
+                return TIPO_ERRO
+
+            if tipo_condicao != TIPO_LOGICO:
+                adicionarErro(
+                    erros,
+                    f"Erro semântico na linha {linha}: "
+                    f"o comando enquanto exige uma comparação relacional direta "
+                    f"como condição."
+                )
+                return TIPO_ERRO
+
+            anotacoes.append({
+                "linha": linha,
+                "categoria": "repeticao",
+                "tipo_condicao": TIPO_LOGICO,
+                "tipo": tipo_acao,
+                "pode_ser_null": True
+            })
+
+            return tipo_acao
+
+        # -----------------------------------------
+        # Para operações comuns, nenhum OPREL
+        # interno recebe autorização especial.
+        # -----------------------------------------
         tipo_esq = inferirTipoElemento(
             primeiro,
             tabela_simbolos,
             resultados_anteriores,
             anotacoes,
             erros,
-            linha
+            linha,
+            oprel_permitido=False
         )
 
         tipo_dir = inferirTipoElemento(
@@ -348,9 +457,13 @@ def inferirTipoComando(
             resultados_anteriores,
             anotacoes,
             erros,
-            linha
+            linha,
+            oprel_permitido=False
         )
 
+        # -----------------------------------------
+        # Operação aritmética comum
+        # -----------------------------------------
         if elementoEhToken(operador, "OP"):
             tipo_resultado = validarOperacaoAritmetica(
                 operador[1],
@@ -369,7 +482,19 @@ def inferirTipoComando(
 
             return tipo_resultado
 
+        # -----------------------------------------
+        # Operação relacional
+        # -----------------------------------------
         if elementoEhToken(operador, "OPREL"):
+            if not oprel_permitido:
+                adicionarErro(
+                    erros,
+                    f"Erro semântico na linha {linha}: "
+                    f"o operador relacional {operador[1]} só pode ser usado "
+                    f"como condição direta de se ou enquanto."
+                )
+                return TIPO_ERRO
+
             tipo_resultado = validarOperacaoRelacional(
                 operador[1],
                 tipo_esq,
@@ -378,53 +503,17 @@ def inferirTipoComando(
                 erros
             )
 
+            if tipo_resultado == TIPO_ERRO:
+                return TIPO_ERRO
+
             anotacoes.append({
                 "linha": linha,
                 "categoria": "operacao_relacional",
                 "operador": operador[1],
-                "tipo": tipo_resultado
+                "tipo": TIPO_LOGICO
             })
 
-            return tipo_resultado
-
-        if elementoEhToken(operador, "SE"):
-            if tipo_esq != TIPO_LOGICO:
-                    adicionarErro(
-                        erros,
-                        f"Erro semântico na linha {linha}: "
-                        f"o comando se exige condição lógica, mas recebeu {tipo_esq}."
-                    )
-                    return TIPO_ERRO
-
-            anotacoes.append({
-                    "linha": linha,
-                    "categoria": "decisao",
-                    "tipo_condicao": tipo_esq,
-                    "tipo": tipo_dir,
-                    "pode_ser_null": True
-                })
-
-            return tipo_dir
-
-        if elementoEhToken(operador, "ENQUANTO"):
-            if elementoEhToken(operador, "ENQUANTO"):
-                if tipo_esq != TIPO_LOGICO:
-                    adicionarErro(
-                        erros,
-                        f"Erro semântico na linha {linha}: "
-                        f"o comando enquanto exige condição lógica, mas recebeu {tipo_esq}."
-                    )
-                    return TIPO_ERRO
-
-                anotacoes.append({
-                    "linha": linha,
-                    "categoria": "repeticao",
-                    "tipo_condicao": tipo_esq,
-                    "tipo": tipo_dir,
-                    "pode_ser_null": True
-                })
-
-                return tipo_dir
+            return TIPO_LOGICO
 
     adicionarErro(
         erros,
