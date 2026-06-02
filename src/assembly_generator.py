@@ -336,7 +336,7 @@ def gerarPotencia(estado):
         d0 = base
         d1 = expoente
 
-    O expoente deve ser inteiro positivo.
+    O expoente deve ser inteiro nao negativo.
     """
 
     inicio = novoLabel("pot_loop", estado)
