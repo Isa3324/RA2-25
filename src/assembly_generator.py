@@ -165,6 +165,7 @@ def gerarRodape(estado):
     codigo += "    .align 3\n"
     codigo += f"resultados:      .space {quantidade * 8}\n"
     codigo += f"resultados_null: .space {quantidade * 4}\n"
+    codigo += "    .align 3\n"
     codigo += "pilha_expr:      .space 2048\n"
 
     return codigo
