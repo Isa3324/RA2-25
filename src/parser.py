@@ -26,7 +26,12 @@ def descrever_token(token):
         tipo = token[0]
         valor = token[1] if len(token) > 1 else ""
         posicao = token[2] if len(token) > 2 else "?"
-        return f"{tipo} ('{valor}') na posição {posicao}"
+        linha = token[3] if len(token) > 3 and token[3] is not None else "?"
+
+        return (
+            f"{tipo} ('{valor}') "
+            f"na linha {linha}, posição {posicao}"
+        )
 
     return str(token)
 
@@ -62,8 +67,7 @@ def parsear(tokens, tabela_ll1, simbolo_inicial="programa", recuperar_erros=Fals
     entrada.append(ENDMARKER)
 
     tokens_com_fim = list(tokens)
-    tokens_com_fim.append((ENDMARKER, ENDMARKER, -1))
-
+    tokens_com_fim.append((ENDMARKER, ENDMARKER, -1, "?"))
     raiz = criar_no(simbolo_inicial)
 
     pilha = [

@@ -295,16 +295,16 @@ As únicas formas aceitas de atribuição são:
 
 A linguagem possui os seguintes operadores aritméticos:
 
-| Operador | Significado              | Exemplo      |       |    |
-| -------- | ------------------------ | ------------ | ----- | -- |
-| `+`      | Adição                   | `(A B +)`    |       |    |
-| `-`      | Subtração                | `(A B -)`    |       |    |
-| `*`      | Multiplicação            | `(A B *)`    |       |    |
-| `        | `                        | Divisão real | `(A B | )` |
-| `/`      | Divisão inteira          | `(A B /)`    |       |    |
-| `%`      | Resto da divisão inteira | `(A B %)`    |       |    |
-| `^`      | Potenciação              | `(A B ^)`    |       |    |
-
+| Operador | Significado | Exemplo |
+| --- | --- | --- |
+| `+` | Adição | `(A B +)` |
+| `-` | Subtração | `(A B -)` |
+| `*` | Multiplicação | `(A B *)` |
+| `\|` | Divisão real | `(A B \|)` |
+| `/` | Divisão inteira | `(A B /)` |
+| `//` | Divisão inteira alternativa | `(A B //)` |
+| `%` | Resto da divisão inteira | `(A B %)` |
+| `^` | Potenciação | `(A B ^)` |
 As operações seguem o formato pós-fixado:
 
 ```txt
@@ -384,12 +384,12 @@ O operador `|` representa divisão real.
 
 Ele aceita operandos numéricos dos tipos `inteiro` ou `real`, em qualquer combinação, e sempre produz resultado do tipo `real`.
 
-| Expressão   | Tipo do resultado |        |
-| ----------- | ----------------- | ------ |
-| `(4 2       | )`                | `real` |
-| `(4.00 2    | )`                | `real` |
-| `(4 2.00    | )`                | `real` |
-| `(4.00 2.00 | )`                | `real` |
+| Expressão | Tipo do resultado |
+| --- | --- |
+| `(4 2 \|)` | `real` |
+| `(4.00 2 \|)` | `real` |
+| `(4 2.00 \|)` | `real` |
+| `(4.00 2.00 \|)` | `real` |
 
 Formalmente:
 
@@ -413,12 +413,15 @@ A divisão por zero não produz um resultado válido. Caso o divisor seja zero d
 
 ### 9.3 Divisão Inteira e Resto
 
-Os operadores `/` e `%` são exclusivos para valores do tipo `inteiro`.
+Os operadores `/` e `//` representam divisão inteira.  
+O operador `%` representa o resto da divisão inteira.
+
+Todos exigem dois operandos do tipo `inteiro`.
 
 ```txt
-/ -> divisão inteira
-% -> resto da divisão inteira
-```
+/  -> divisão inteira
+// -> divisão inteira
+%  -> resto da divisão inteira
 
 Assim, ambos os operandos devem ser literais ou resultados do tipo `inteiro`.
 
@@ -454,6 +457,12 @@ Formalmente:
 Γ ⊢ e1 : inteiro     Γ ⊢ e2 : inteiro
 ---------------------------------------
 Γ ⊢ (e1 e2 %) : inteiro
+```
+
+```txt
+Γ ⊢ e1 : inteiro     Γ ⊢ e2 : inteiro
+---------------------------------------
+Γ ⊢ (e1 e2 //) : inteiro
 ```
 
 Quando algum operando não for `inteiro`, ocorre erro semântico.

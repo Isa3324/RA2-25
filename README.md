@@ -163,13 +163,13 @@ A execução é realizada por argumento de linha de comando, sem menu interativo
 A partir da raiz do projeto, execute:
 
 ```bash
-python src/main.py tests/teste_01_valido_completo.txt
+python src/main.py tests/teste1.txt
 ```
 
 No Windows, também pode ser utilizado:
 
 ```bash
-py src/main.py tests/teste_01_valido_completo.txt
+py src/main.py tests/teste1.txt
 ```
 
 Caso nenhum arquivo `.txt` seja informado, o programa apresenta a forma correta de uso:
@@ -260,7 +260,7 @@ resultados_null
 | `NUM`      | Literal numérico                         | `2`, `2.00`                      |                        |
 | `MEM`      | Variável de memória em letras maiúsculas | `A`, `TOTAL`                     |                        |
 | `RES`      | Recupera resultado anterior              | `(0 RES)`                        |                        |
-| `OP`       | Operador aritmético                      | `+`, `-`, `*`, `                 | `, `/`, `//`, `%`, `^` |
+| `OP`       | Operador aritmético                      | `+`, `-`, `*`, \| , `/`, `//`, `%`, `^` |
 | `OPREL`    | Operador relacional                      | `==`, `!=`, `>`, `<`, `>=`, `<=` |                        |
 | `SE`       | Estrutura condicional                    | `se`                             |                        |
 | `ENQUANTO` | Estrutura de repetição                   | `enquanto`                       |                        |
@@ -359,13 +359,12 @@ Atribuir o resultado de uma expressão diretamente para uma variável não é pe
 
 ## 5.2 Operações Numéricas
 
-| Operador       | Regra de tipo                                                               |                                                |
-| -------------- | --------------------------------------------------------------------------- | ---------------------------------------------- |
-| `+`, `-`, `*`  | Aceitam inteiro e real; promovem para `real` caso algum operando seja real. |                                                |
-| `              | `                                                                           | Divisão real; aceita números e retorna `real`. |
-| `/`, `//`, `%` | Exigem dois operandos `inteiro` e retornam `inteiro`.                       |                                                |
-| `^`            | Aceita base numérica e expoente literal numericamente inteiro não negativo. |                                                |
-
+| Operador | Regra de tipo |
+| --- | --- |
+| `+`, `-`, `*` | Aceitam inteiro e real; promovem para `real` caso algum operando seja real. |
+| `\|` | Divisão real; aceita números e retorna `real`. |
+| `/`, `//`, `%` | Exigem dois operandos `inteiro` e retornam `inteiro`. |
+| `^` | Aceita base numérica e expoente literal numericamente inteiro não negativo. |
 Exemplos válidos:
 
 ```txt
@@ -480,7 +479,7 @@ Exemplos inválidos:
 
 ---
 
-# 6. Gramática em EBNF
+# 6. Gramática Sintática em EBNF
 
 A gramática sintática implementada é representada abaixo em EBNF.
 
@@ -549,6 +548,17 @@ A gramática aceita a estrutura geral dos comandos. A análise semântica restri
 | `(condicao acao enquanto)` | Condição deve ser `logico`; resultado pode ser `NULL`.     |
 
 ---
+
+## 6.3 Atributos Semânticos Associados às Produções
+
+| Produção | Atributo produzido | Regra |
+| --- | --- | --- |
+| `(NUM MEM)` | `tipo = real` | Toda variável armazenada em memória possui tipo `real`. |
+| `(MEM MEM)` | `tipo = real` | A origem deve ter sido definida anteriormente. |
+| `(e1 e2 OP)` | `tipo_resultado` | Definido pelas regras numéricas da seção 7. |
+| `(cond acao se)` | `tipo_resultado`, `pode_ser_null = true` | A condição deve ser `logico`. |
+| `(cond acao enquanto)` | `tipo_resultado`, `pode_ser_null = true` | A condição deve ser `logico`. |
+| `(N RES)` | `tipo_resultado`, `pode_ser_null` | Copia os atributos do resultado anterior referenciado. |
 
 # 7. Gramática Atribuída e Regras Semânticas
 
@@ -899,12 +909,12 @@ A pasta `tests` contém arquivos separados para programas válidos e inválidos.
 
 | Arquivo                                       | Tipo de teste              | Elementos verificados                                                                               |
 | --------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------- |
-| `teste_01_valido_completo.txt`                | Programa válido completo   | Comentários em posições diferentes, inteiro, real, potência, `se`, `enquanto`, aninhamento e `RES`. |
-| `teste_02_erro_lexico_comentario.txt`         | Erro léxico                | Comentário aberto e não finalizado; mensagem sem traceback.                                         |
-| `teste_03_erro_sintatico.txt`                 | Erro sintático             | Estrutura inválida com tokens reconhecidos.                                                         |
-| `teste_04_erro_semantico_tabela_simbolos.txt` | Erros de declaração        | Variável não definida, definição dentro de controle e atribuição proibida.                          |
-| `teste_05_erro_semantico_tipos.txt`           | Erros de tipo              | Divisão inteira com real, potência inválida, OPREL isolado, `NULL` e `RES` aninhado.                |
-| `teste_06_valido_null_res.txt`                | Programa válido com `NULL` | `se` falso, `enquanto` sem execução e propagação de `NULL` por `RES`.                               |
+| `teste1.txt`                | Programa válido completo   | Comentários em posições diferentes, inteiro, real, potência, `se`, `enquanto`, aninhamento e `RES`. |
+| `teste2.txt`         | Erro léxico                | Comentário aberto e não finalizado; mensagem sem traceback.                                         |
+| `teste3.txt`                 | Erro sintático             | Estrutura inválida com tokens reconhecidos.                                                         |
+| `teste4.txt` | Erros de declaração        | Variável não definida, definição dentro de controle e atribuição proibida.                          |
+| `teste5.txt`           | Erros de tipo              | Divisão inteira com real, potência inválida, OPREL isolado, `NULL` e `RES` aninhado.                |
+| `teste6.txt`                | Programa válido com `NULL` | `se` falso, `enquanto` sem execução e propagação de `NULL` por `RES`.                               |
 
 ## 12.2 Comandos para Executar os Testes
 
